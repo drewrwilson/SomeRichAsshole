@@ -1,4 +1,4 @@
-Some Rich Asshole
+Donals Trump -> Some Rich Asshole
 =============
 
 Browser add-on that replaces "Donald Trump" with "Some Rich Asshole".
