@@ -34,10 +34,10 @@ layout:
       <h3>Install the browser plugin</h3>
       </div>
       <div class="titlebar_item">
-      <a href="download/some-rich-asshole-chrome.crx">Chrome</a>
+      <a id="chromeDownload" href="download/some-rich-asshole-chrome.crx" onclick="_trackEvent('Click', 'Download', 'Chrome');">Chrome</a>
       </div>
       <div class="titlebar_item">
-      <a href="download/some-rich-asshole-firefox.xpi">Firefox</a>
+      <a id="firefoxDownload" href="download/some-rich-asshole-firefox.xpi" onclick="_trackEvent('Click', 'Download', 'Firefox');">Firefox</a>
       </div>
     </section>
     <script>
@@ -50,5 +50,6 @@ layout:
       ga('send', 'pageview');
 
     </script>
+
   </body>
 </html>
