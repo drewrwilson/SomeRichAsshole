@@ -1,14 +1,25 @@
+---
+layout:
+---
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700|Old+Standard+TT' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
-
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{site.title}}: {{site.tagline}}" />
+    <meta property="og:description" content="{{site.fbsharetext}}" />
+    <meta property="og:url" content="{{site.fullurl}}" />
+    <meta property="og:site_name" content="{{site.title}}" />
+    <meta property="og:image" content="{{site.fbshareimg}}" />
+    <title>{{ site.title }}: {{site.tagline}}</title>
+    <meta name="description" content="{{site.title}}: {{site.tagline}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <!-- <img src="trump.png" alt="" style="width:100%; height:100%"/> -->
     <section class="hero">
       <div class="hero_message">
       <h1>Some <span>Rich</span> Asshole</h1>
@@ -22,35 +33,11 @@
       <h3>Install the browser plugin</h3>
       </div>
       <div class="titlebar_item">
-      <a href="#" >Chrome</a>
+      <a href="download/some-rich-asshole-chrome.crx" >Chrome</a>
       </div>
       <div class="titlebar_item">
-      <a href="">Firefox</a>
+      <a href="download/some-rich-asshole-firefox.xpi">Firefox</a>
       </div>
     </section>
-
-    <!-- <section>
-      <h1>Screenshots</h1>
-      <p>
-        Share your photos using the hashtag #SomeRichAsshole.
-      </p>
-    </section>
-
-    <section id="chrome">
-      <div  class="body-heading">
-        <h1>How to install it in chrome</h1>
-      </div>
-
-
-      <button type="button" name="button" class="btn btn-lg">Download the plugin</button>
-      <h2>Open Chrome</h2>
-      <h2>Open your preferences and go to your extensions</h2>
-      <h2>Drag the downloaded plugin and drop it in the window</h2>
-      <h2>Browse the web</h2>
-    </section>
-
-    <footer>
-      Paid for by nobody. Made by some dude who thinks Trump is a rich asshole.
-    </footer> -->
   </body>
 </html>
