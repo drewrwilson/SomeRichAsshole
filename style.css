@@ -1,3 +1,4 @@
+
 .sub-title {
   padding-top: 5px;
   color: #fff;
@@ -17,7 +18,7 @@
   width:100%;min-width:1080px;height:680px;position:relative;overflow:hidden;background:#000;
 }
 .antagonist .antagonist_message{
-  padding-top:30px;width:531px;height:279px;background:url(bg-stars.png) 0 0 no-repeat;position:absolute;top:50px;left:10px;margin-left:0;text-align:center;z-index:300;
+  padding-top:30px;width:531px;height:279px;background:url(bg-stars.png) 0 0 no-repeat;position:absolute;top:180px;left:10px;margin-left:0;text-align:center;z-index:300;
 }
 
 
@@ -72,21 +73,25 @@
 .titlebar h1{color:#fff;}
 
 html, body, p, a, h1, h2, h3, h4, h5, h6 {
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 a {
-text-decoration: none;
+  text-decoration: none;
 }
 
-html, body, br, hr, div, span, a, object, iframe, ul, ol, dl, li, dt, dd, h1, h2, h3, h4, h5, h6, p, blockquote, q, address, small, big, cite, dfn, ins, del, i, em, b, strong, sup, sub, strike, pre, code, samp, kbd, var, tt, form, fieldset, legend, label, input, textarea, option, .nobox {
-    background: transparent;
+html, body, h1, h2, h3 {
+    /*background: transparent;*/
+
     border: 0;
     font-size: 100%;
     margin: 0;
     outline: 0;
     padding: 0;
     vertical-align: baseline;
+}
+body {
+  background: url(bg.png) #21253E;
 }
 h1, h2, h3, h4, h5, h6 {
     color: #464646;
