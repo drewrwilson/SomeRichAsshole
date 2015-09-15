@@ -1,3 +1,13 @@
+.sub-title {
+  padding-top: 5px;
+  color: #fff;
+  text-transform: none;
+  font-family: 'Montserrat', sans-serif;
+  width: 400px;
+  text-align: center;
+  margin: 0 auto;
+}
+
 .antagonist .antagonist_image img {
     min-width: 100%;
     min-height: 680px;
@@ -7,7 +17,7 @@
   width:100%;min-width:1080px;height:680px;position:relative;overflow:hidden;background:#000;
 }
 .antagonist .antagonist_message{
-  padding-top:40px;width:531px;height:244px;background:url(bg-stars.png) 0 0 no-repeat;position:absolute;bottom:50px;left:20px;margin-left:0;text-align:center;z-index:300;
+  padding-top:30px;width:531px;height:279px;background:url(bg-stars.png) 0 0 no-repeat;position:absolute;top:50px;left:10px;margin-left:0;text-align:center;z-index:300;
 }
 
 
@@ -142,10 +152,4 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     z-index: 300;
 }
-}
-
-#intro {
-  background: url('pattern.gif') repeat-x repeat-y;
-  padding: 10%;
-  color: red;
 }
