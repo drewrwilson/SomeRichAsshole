@@ -118,8 +118,7 @@ h1, h2, h3, h4, h5, h6 {
 .antagonist{min-width:inherit;}.titlebar{min-width:inherit;}.media{min-width:inherit;}.twitter_posts{min-width:inherit;}footer{min-width:inherit;}.antagonist .antagonist_image{min-width:inherit;}.internal .banner{min-width:inherit;}.internal .banner .banner_message{min-width:inherit;}.about .top{min-width:inherit;}.about .main .full_img{min-width:inherit;}.social{min-width:inherit;}}
 
 
-@media screen and (max-width: 480px)/* max-width 480px, Only for mobile device */{.antagonist .antagonist_message{display:none;}.antagonist .antagonist_message h1 span{font-size:30px;}.antagonist .antagonist_message h1{line-height:33px;font-size:18px;}
-@media screen and (max-width: 600px){.antagonist .antagonist_message{display:none;}}
+@media screen and (max-width: 480px)/* max-width 480px, Only for mobile device */{.antagonist .antagonist_message h1 span{font-size:30px;}.antagonist .antagonist_message h1{line-height:33px;font-size:18px;}
 @media screen and (max-width: 880px)/* max-width 767px, Only for mobile device */{.titlebar .title h3{line-height:normal;}
 @media screen and (max-width: 767px)/* max-width 767px, Only for mobile device */{.antagonist{min-width:inherit;height:auto;min-height:180px;}.titlebar{min-width:inherit;height:auto;padding:20px 0;border:none;}.titlebar .title{margin-right:0;text-align:center;margin-bottom:5px;margin-left:0;display:block;}
 
