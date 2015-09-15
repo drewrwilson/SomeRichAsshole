@@ -2,9 +2,6 @@ walk(document.body);
 
 function walk(node)
 {
-	// I stole this function from here:
-	// http://is.gd/mwZp7E
-
 	var child, next;
 
 	switch ( node.nodeType )
@@ -31,7 +28,7 @@ function handleText(textNode)
 {
 	var v = textNode.nodeValue;
 
-
+	v = v.replace(/\bDonald John Trump\b/g, "Some Rich Asshole");
 	v = v.replace(/\bThe Donald\b/g, "The rich asshole");
 	v = v.replace(/\bMr. Trump\b/g, "rich asshole");
 	v = v.replace(/\bDonald J. Trump\b/g, "this rich asshole");
@@ -56,9 +53,6 @@ function handleText(textNode)
 	v = v.replace(/\b#teamTrump\b/g, "#TeamRichAsshole")
 	v = v.replace(/\bTrump2016\b/g, "RichAsshole2016")
 	v = v.replace(/\bdonaldjtrump.com\b/g, "SomeRichAsshole.com")
-
-
-
 
 	textNode.nodeValue = v;
 }

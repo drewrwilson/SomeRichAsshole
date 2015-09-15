@@ -28,6 +28,7 @@
     {
         var v = textNode.nodeValue;
 
+        v = v.replace(/\bDonald John Trump\b/g, "Some Rich Asshole");
         v = v.replace(/\bThe Donald\b/g, "The rich asshole");
       	v = v.replace(/\bMr. Trump\b/g, "rich asshole");
       	v = v.replace(/\bDonald J. Trump\b/g, "this rich asshole");
