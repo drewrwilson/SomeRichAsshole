@@ -8,22 +8,9 @@
   margin: 0 auto;
 }
 
-.antagonist .antagonist_message {
-  padding-top:30px;
-  width:531px;
-  height:279px;
-  background:url(bg-stars.png) 0 0 no-repeat;
-  position:absolute;
-  top:180px;
-  top: 20vh;
-  left:10px;margin-left:0;
-  text-align:center;
-  z-index:300;
-}
+.antagonist .antagonist_message h1 span{font-family:'Old Standard TT',serif; font-size:30px;}
+.antagonist .antagonist_message h1{font-family:'Montserrat', sans-serif;line-height:33px;font-size:18px;}
 
-
-.antagonist .antagonist_message h1{font-family:'Montserrat', sans-serif;font-size:40px;letter-spacing:.2em;color:#fff;line-height:50px;}
-.antagonist .antagonist_message h1 span{font-family:'Old Standard TT',serif;font-weight:400;font-size:90px;display:block;padding:25px 0;letter-spacing:0em;}
 .antagonist .antagonist_image{width:100%;min-width:1080px;height:auto;}
 .antagonist .antagonist_image img{min-width:100%;min-height:100%;}
 
@@ -124,46 +111,30 @@ h1, h2, h3, h4, h5, h6 {
   padding-left: 10px;
 }
 
-
-@media only screen and (min-width: 1025px) and (max-width: 1079px)/* for all screen larger then 1200px (devices and browsers) */ {
-  header{min-width:inherit;
-  }
-
-.antagonist{min-width:inherit;}.titlebar{min-width:inherit;}.media{min-width:inherit;}.twitter_posts{min-width:inherit;}footer{min-width:inherit;}.antagonist .antagonist_image{min-width:inherit;}.internal .banner{min-width:inherit;}.internal .banner .banner_message{min-width:inherit;}.about .top{min-width:inherit;}.about .main .full_img{min-width:inherit;}.social{min-width:inherit;}}
-
-
-@media screen and (max-width: 480px)/* max-width 480px, Only for mobile device */{.antagonist .antagonist_message h1 span{font-size:30px;}.antagonist .antagonist_message h1{line-height:33px;font-size:18px;}
-@media screen and (max-width: 880px)/* max-width 767px, Only for mobile device */{.titlebar .title h3{line-height:normal;}
-@media screen and (max-width: 767px)/* max-width 767px, Only for mobile device */{.antagonist{min-width:inherit;height:auto;min-height:180px;}.titlebar{min-width:inherit;height:auto;padding:20px 0;border:none;}.titlebar .title{margin-right:0;text-align:center;margin-bottom:5px;margin-left:0;display:block;}
-
-@media screen and (max-width: 767px) {
-  .antagonist .antagonist_message h1 span {
-    font-size: 50px;
-    padding: 0;
-  }
-  .antagonist .antagonist_message {
-    bottom: 4%;
-    margin-left: 0;
-    left: 4%;
-    text-align: center;
-    background-size: 100% 100%;
-    height: calc(100% - 66px);
-    padding: 20px 0;
-  }
-}
-
-@media only screen and (min-width: 768px) and (max-width: 1024px)/* for all device larger then 768px (devices and browsers) */ {header{min-width:inherit;}.antagonist{min-width:inherit;height:auto;}.titlebar{min-width:inherit;}.media{min-width:inherit;}.twitter_posts{min-width:inherit;}footer{min-width:inherit;}header .container{width:96%;}.antagonist .antagonist_image{min-width:inherit;}.media .container{width:96%;}#root_left{width:59%;float:left;}#root_right{width:40%;float:right;}.media .multimedia img{max-width:100%;}.media .press .press_item{padding:20px 2% 50px;width:43%;margin:0 1%;}.media .press .press_item h2,.press .main .press_item h2{font-size:18px;line-height:26px;}.media .releases .release_item{padding:20px 2% 50px;width:94%;margin:0 1% 10px;}.media .releases .release_item h2,.press .main .press_item h2{font-size:18px;line-height:26px;}.twitter_posts .twitter_item{padding:0 2% 35px;width:45%;vertical-align:top;}.social{min-width:inherit;}.social .social_item{width:18%;padding-left:6%;}header nav ul li a{padding:0 15px;}.antagonist .antagonist_image img{max-width:100%;min-height:inherit;display:block;}.antagonist .antagonist_message{bottom:10%;}.internal .banner{min-width:inherit;}.internal .banner .banner_message{min-width:inherit;}.about .top{min-width:inherit;}.about .main .full_img{min-width:inherit;}.social{min-width:inherit;}.about .main .two_col_img{max-width:48%;}.internal .banner .banner_image{min-width:inherit;}}
-
 .antagonist .antagonist_message {
-    padding-top: 40px;
-    width: 531px;
-    height: 244px;
-    background: url(bg-stars.png) 0 0 no-repeat;
-    position: absolute;
-    bottom: 50px;
-    left: 20px;
-    margin-left: 0;
-    text-align: center;
-    z-index: 300;
+  padding-top:30px; 
+  background:url(bg-stars.png) center center no-repeat; 
+  position:absolute;
+  top:180px;
+  top: 20vh;
+  left:10px;margin-left:0;
+  text-align:center;
+  z-index:300; 
+  width: 100%;
+  text-align: center;
+  height:279px;
 }
+
+.antagonist .antagonist_message h1{
+  font-size:40px;
+  letter-spacing:.2em;
+  color:#fff;
+  line-height:50px;
+}
+.antagonist .antagonist_message h1 span{font-weight:400;font-size:90px;display:block;padding:25px 0;letter-spacing:0em;}
+
+@media screen and (min-width: 768px) {
+  .antagonist .antagonist_message {
+    width:531px;
+  }
 }
