@@ -9,8 +9,12 @@ Available for Chrome and Firefox.
 
 ### Chrome
 
- 1. [Download the Chrome extension](http://SomeRichAsshole.com/download/some-rich-asshole-chrome.crx).
- 1. In Chrome, choose Window > Extensions.  Drag `some-rich-asshole.crx` into the page that appears.
+#### Install from Chrome webstore
+The best way to install this is from [the chrome webstore](https://chrome.google.com/webstore/detail/some-rich-asshole/hgcjjgnlnheojgpdiafpdnjjpbkedgfh). Please take a moment to rate the extension too.
+
+#### Install directly via code
+ 1. [Download the Chrome extension](http://SomeRichAsshole.com/download/some-rich-asshole-chrome.zip).
+ 1. In Chrome, choose Window > Extensions.  Drag `some-rich-asshole.zip` into the page that appears.
 
 ### Firefox
 
