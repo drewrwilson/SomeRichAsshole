@@ -5,6 +5,8 @@ Browser add-on that replaces "Donald Trump" with "Some Rich Asshole".
 
 Available for Chrome and Firefox.
 
+![Screenshot](/screenshots/good-morning-trump.jpg)
+
 ## How to install
 
 ### Chrome
