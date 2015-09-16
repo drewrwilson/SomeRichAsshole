@@ -51,7 +51,7 @@
   box-shadow: 0px 1px 3px #666666;
   color: #ffffff;
   font-size: 20px;
-  background: #990000;
+  background: #d62424;
   padding: 10px 60px 10px 45px;
   text-decoration: none;
   display: inline-block;
@@ -61,7 +61,7 @@
 }
 
 .btn:hover {
-  background: #d62424;
+  background:#990000 ;
   text-decoration: none;
 }
 .titlebar h3{
