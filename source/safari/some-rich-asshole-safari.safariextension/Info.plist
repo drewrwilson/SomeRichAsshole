@@ -45,7 +45,7 @@
 		</dict>
 	</dict>
 	<key>Update Manifest URL</key>
-	<string>http://www.somerichasshole.com/safari/update-manifest.plist</string>
+	<string>http://www.somerichasshole.com/download/safari/update-manifest.plist</string>
 	<key>Website</key>
 	<string>http://www.somerichasshole.com</string>
 </dict>
