@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>Drew Wilson</string>
+	<key>Builder Version</key>
+	<string>9537.85.17.9.1</string>
+	<key>CFBundleDisplayName</key>
+	<string>Some Rich Asshole</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.somerichasshole.safari</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.1</string>
+	<key>CFBundleVersion</key>
+	<string>1.1.0</string>
+	<key>Chrome</key>
+	<dict/>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict>
+			<key>End</key>
+			<array>
+				<string>end_script.js</string>
+			</array>
+		</dict>
+	</dict>
+	<key>Description</key>
+	<string>Replaces the text 'Donald Trump' with 'Some Rich Asshole'.</string>
+	<key>DeveloperIdentifier</key>
+	<string>X68SJGF8QY</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>All</string>
+		</dict>
+	</dict>
+	<key>Update Manifest URL</key>
+	<string>http://www.somerichasshole.com/safari/update-manifest.plist</string>
+	<key>Website</key>
+	<string>http://www.somerichasshole.com</string>
+</dict>
+</plist>
