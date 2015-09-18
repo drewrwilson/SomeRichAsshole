@@ -1,5 +1,3 @@
-walk(document.body);
-
 function walk(node)
 {
 	var child, next;
@@ -61,3 +59,11 @@ function handleText(textNode)
 
 	textNode.nodeValue = v;
 }
+
+walk(document.body);
+
+new MutationObserver(function() {
+  walk(document.body);
+}).observe(document.body, {
+  childList: true
+});

@@ -64,6 +64,12 @@
 
         document.getElementById('appcontent').addEventListener('DOMContentLoaded', function(e) {
             walk(e.originalTarget.body);
+            
+            new MutationObserver(function() {
+              walk(e.originalTarget.body);
+            }).observe(e.originalTarget.body, {
+              childList: true
+            });
         });
     }
 
