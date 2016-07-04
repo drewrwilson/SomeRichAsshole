@@ -1,8 +1,8 @@
 {
 	"manifest_version": 2,
 	"name": "Some Rich Asshole",
-	"version": "1.3",
-	"description": "Replaces the text 'Donald Trump' with 'Some Rich Asshole'.",
+	"version": "1.3.1",
+	"description": "Replaces the text 'Donald Trump' with one of a number of more colorful phrases.",
 	"content_scripts":
 	[
 		{

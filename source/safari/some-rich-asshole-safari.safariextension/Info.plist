@@ -15,7 +15,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.3</string>
 	<key>CFBundleVersion</key>
-	<string>1.3.0</string>
+	<string>1.3.1</string>
 	<key>Chrome</key>
 	<dict/>
 	<key>Content</key>
@@ -29,7 +29,7 @@
 		</dict>
 	</dict>
 	<key>Description</key>
-	<string>Replaces the text 'Some rich asshole' with 'Some Rich Asshole'.</string>
+	<string>Replaces the text 'Some rich asshole' with one of a number of more colorful phrases.</string>
 	<key>DeveloperIdentifier</key>
 	<string>X68SJGF8QY</string>
 	<key>ExtensionInfoDictionaryVersion</key>
