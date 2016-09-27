@@ -24,7 +24,7 @@ function walk(node)
 
 function _getPhrase(caps_mode = null)
 {
-  var phrases = ["rich asshole", "weapons-grade plum", "utter twonk", "absolute fucking doughnut", "witless fucking cocksplat", "weaselheaded fucknugget", "mangled apricot hellbeast", "clueless numpty", "bloviating fleshbag", "incompressible jizztrumpet", "tiny-fingered, cheeto-faced, ferret-wearing shitgibbon", "cockwomble", "ludicrous tangerine ballbag", "toupeed fucktrumpet", "weaselheaded fucknugget", "short-fingered vulgarian", "free-floating misogynist", "thin-skinned tyrant", "adult blobfish", "disgraced racist", "talking combover", "cheeto-dusted bloviator", "bag of toxic sludge", "man-sized sebaceous cyst", "hairpiece come to life", "shrunken apple head", "cartoon plutocrat", "sentient overripe pear", "cable news fever dream", "living youtube comment thread", "monument to hubris"];
+  var phrases = ["rich asshole", "weapons-grade plum", "witless fucking cocksplat", "weaselheaded fucknugget", "mangled apricot hellbeast", "clueless numpty", "bloviating fleshbag", "tiny-fingered, cheeto-faced, ferret-wearing shitgibbon", "cockwomble", "ludicrous tangerine ballbag", "toupeed fucktrumpet", "weaselheaded fucknugget", "short-fingered vulgarian", "free-floating misogynist", "thin-skinned tyrant", "disgraced racist", "talking combover", "cheeto-dusted bloviator", "bag of toxic sludge", "man-sized sebaceous cyst", "hairpiece come to life", "cartoon plutocrat", "cable news fever dream", "living youtube comment thread", "monument to hubris", "tantrum pumpkin", "marmalade manchild", "incoherent creamsicle", "il douche", "mendacious mango", "robert mugabe of the hudson", "ape in a suit", "stale dorito"];
   if(caps_mode == "allcaps"){
     return phrases[Math.floor(Math.random()*phrases.length)].toUpperCase();
   } else if(caps_mode == "firstcaps"){
@@ -39,30 +39,28 @@ function handleText(textNode)
 {
 	var v = textNode.nodeValue;
 	
-	v = v.replace(/\bDONALD JOHN TRUMP\b/g, "SOME "+_getPhrase("allcaps"));
-	v = v.replace(/\bDonald John Trump\b/g, "Some "+_getPhrase("firstcaps"));
-	v = v.replace(/^Donald John Trump$/g, "Some "+_getPhrase("firstcaps"));
-	v = v.replace(/\bdonald john trump\b/g, "some "+_getPhrase());
-	v = v.replace(/\bDONALD J. TRUMP\b/g, "SOME "+_getPhrase("allcaps"));
-	v = v.replace(/\bDonald J. Trump\b/g, "Some "+_getPhrase("firstcaps"));
-	v = v.replace(/\bdonald j. trump\b/g, "some "+_getPhrase());
-	v = v.replace(/\bDONALD J TRUMP\b/g, "SOME "+_getPhrase("allcaps"));
-	v = v.replace(/\bDonald J Trump\b/g, "Some "+_getPhrase("firstcaps"));
-	v = v.replace(/\bdonald j trump\b/g, "some "+_getPhrase());
+	v = v.replace(/([\.!\?][\n\s]*)\bTrump\b/g, "$2The "+_getPhrase("firstcaps"));
+	v = v.replace(/\bDONALD JOHN TRUMP\b/g, _getPhrase("allcaps"));
+	v = v.replace(/\bDonald John Trump\b/g, _getPhrase("firstcaps"));
+	v = v.replace(/^Donald John Trump$/g, _getPhrase("firstcaps"));
+	v = v.replace(/\bdonald john trump\b/g, _getPhrase());
+	v = v.replace(/\bDONALD J\.? TRUMP\b/g, _getPhrase("allcaps"));
+	v = v.replace(/\bDonald J\.? Trump\b/g, _getPhrase("firstcaps"));
+	v = v.replace(/\bdonald j\.? trump\b/g, _getPhrase());
 	v = v.replace(/\bMR. TRUMP\b/g, "MR. "+_getPhrase("allcaps"));
 	v = v.replace(/\bMr. Trump\b/g, "Mr. "+_getPhrase("firstcaps"));
 	v = v.replace(/\bmr. trump\b/g, "mr. "+_getPhrase());
-	v = v.replace(/\bPRESIDENTIAL CANDIDATE TRUMP\b/g, "SOME "+_getPhrase("allcaps")+" WHO WANTS TO BE PRESIDENT");
-	v = v.replace(/\bPresidential Candidate Trump\b/g, "Some "+_getPhrase()+" who wants to be president");
-	v = v.replace(/\bpresidential candidate trump\b/g, "some "+_getPhrase()+" who wants to be president");
-	v = v.replace(/\bPRESIDENTIAL CANDIDATE DONALD TRUMP\b/g, "SOME "+_getPhrase("allcaps")+" WHO WANTS TO BE PRESIDENT");
-	v = v.replace(/\bPresidential candidate Donald Trump\b/g, "Some "+_getPhrase()+" who wants to be president");
-	v = v.replace(/\bpresidential candidate Donald Trump\b/gi, "some "+_getPhrase()+" who wants to be president");
-	v = v.replace(/\bDONALD TRUMP\b/g, "SOME "+_getPhrase("allcaps"));
-	v = v.replace(/\bDonald Trump\b/g, "Some "+_getPhrase("firstcaps"));
-	v = v.replace(/^Donald Trump\b/g, "Some "+_getPhrase("firstcaps"));
+	v = v.replace(/\bPRESIDENTIAL CANDIDATE TRUMP\b/g, _getPhrase("allcaps")+" WHO WANTS TO BE PRESIDENT");
+	v = v.replace(/\bPresidential Candidate Trump\b/g, _getPhrase()+" who wants to be president");
+	v = v.replace(/\bpresidential candidate trump\b/g, _getPhrase()+" who wants to be president");
+	v = v.replace(/\bPRESIDENTIAL CANDIDATE DONALD TRUMP\b/g, _getPhrase("allcaps")+" WHO WANTS TO BE PRESIDENT");
+	v = v.replace(/\bPresidential candidate Donald Trump\b/g, _getPhrase()+" who wants to be president");
+	v = v.replace(/\bpresidential candidate Donald Trump\b/gi, _getPhrase()+" who wants to be president");
+	v = v.replace(/\bDONALD TRUMP\b/g, _getPhrase("allcaps"));
+	v = v.replace(/\bDonald Trump\b/g, _getPhrase("firstcaps"));
+	v = v.replace(/^Donald Trump\b/g, _getPhrase("firstcaps"));
 	v = v.replace(/\.( )*\bDonald Trump\b/g, ". Some "+_getPhrase("firstcaps"));
-	v = v.replace(/\bdonald trump\b/g, "some "+_getPhrase());
+	v = v.replace(/\bdonald trump\b/g, _getPhrase());
 	v = v.replace(/\b#DONALDTRUMP\b/g, "#SOMERICHASSHOLE");
 	v = v.replace(/\b#DonaldTrump\b/gi, "#SomeRichAsshole");
 	v = v.replace(/\b#TRUMP\b/g, "#SOMERICHASSHOLE");
@@ -77,9 +75,9 @@ function handleText(textNode)
 	v = v.replace(/\bTHE DONALD\b/g, "THE "+_getPhrase("allcaps"));
 	v = v.replace(/\bThe Donald\b/g, "The "+_getPhrase("firstcaps"));
 	v = v.replace(/\bthe donald\b/g, "the "+_getPhrase());
-	v = v.replace(/\bTRUMP\b/g, ""+_getPhrase("allcaps"));
-	v = v.replace(/\bTrump\b/g, "The "+_getPhrase("firstcaps"));
-	v = v.replace(/^Trump\b/g, "The "+_getPhrase("firstcaps"));
+	v = v.replace(/\bTRUMP\b/g, _getPhrase("allcaps"));
+	v = v.replace(/\bTrump\b/g, _getPhrase("firstcaps"));
+	v = v.replace(/^Trump\b/g, _getPhrase("firstcaps"));
 	v = v.replace(/\.( )*\bTrump\b/g, ". The "+_getPhrase("firstcaps"));
 	
 	textNode.nodeValue = v;
