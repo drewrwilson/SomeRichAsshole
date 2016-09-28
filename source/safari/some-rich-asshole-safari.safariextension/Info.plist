@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Author</key>
-	<string>Drew</string>
+	<string>Stange</string>
 	<key>Builder Version</key>
 	<string>9537.85.17.9.1</string>
 	<key>CFBundleDisplayName</key>
@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.3</string>
+	<string>2.2</string>
 	<key>CFBundleVersion</key>
-	<string>1.3.1</string>
+	<string>2.2</string>
 	<key>Chrome</key>
 	<dict/>
 	<key>Content</key>
