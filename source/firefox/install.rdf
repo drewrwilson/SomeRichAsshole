@@ -3,15 +3,14 @@
   <RDF:Description about="urn:mozilla:install-manifest">
 
     <!-- GUID and type -->
-    <em:id>some-rich-asshole@lol.info</em:id>
+    <em:id>some-rich-asshole-enhanced@lol.info</em:id>
     <em:type>2</em:type>
 
     <!-- Extension details -->
-    <em:name>Some Rich Asshole</em:name>
+    <em:name>Some Rich Asshole Enhanced</em:name>
     <em:description>Replaces the text 'Donald Trump' with one of a number of more colorful phrases.</em:description>
     <em:creator>Drew</em:creator>
     <em:developer>Stange</em:developer>
-    <em:homepageURL>http//somerichasshole.com</em:homepageURL>
 
     <!-- Current version -->
     <em:version>2.2</em:version>
