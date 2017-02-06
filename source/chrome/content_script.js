@@ -17,88 +17,147 @@ function walk(node)
 			break;
 		
 		case 3: // Text node
-			handleText(node);
+			  handleText(node);
 			break;
 	}
 }
 
-function _getPhrase(caps_mode = null, prefix = false)
+foundtrumps = 0;
+var prefix_phrases = ["Rich Asshole", "Weapons-Grade Plum", "Witless Fucking Cocksplat", "Mangled Apricot Hellbeast", "Clueless Numpty", "Bloviating Fleshbag", "Tiny-Fingered, Cheeto-Faced, Ferret-Wearing Shitgibbon", "Cockwomble", "Ludicrous Tangerine Ballbag", "Toupeed Fucktrumpet", "Weaselheaded Fucknugget", "Short-Fingered Vulgarian", "Free-Floating Misogynist", "Thin-Skinned Tyrant", "Disgraced Racist", "Talking Combover", "Cheeto-Dusted Bloviator", "Bag of Toxic Sludge", "Man-Sized Sebaceous Cyst", "Hairpiece Come to Life", "Cartoon Plutocrat", "Cable News Fever Dream", "Living YouTube Comment Thread", "Monument to Hubris", "Tantrum Pumpkin", "Marmalade Manchild", "Incoherent Creamsicle", "Mendacious Mango", "Ape in a Suit", "Stale Dorito", "Notorious B.I.G.ot", "Steaming Orange Turd in the International Punch Bowl", "Nacho Cheese Golem", "Moldy Pumpkin Spice Latte", "Brightly Burning Trash Fire", "Sentient Hate-Balloon", "Lead Paint Addict"];
+// some sobriquets do not need a "the" or other title to make sense
+var noprefix_phrases = ["Il Douche", "Lord Dampnut", "Our National Nightmare", "Cheez-It Ceaușescu", "Lumpy Joffrey Baratheon", "Tropicana Jong-il"];
+// Let's do Bannon too. Fuck that guy.
+var bannon_phrases = ["a self-serious pseudo-intellectual oil spill", "a hate-filled turnip", "potato blight with a mouth", "sort of a Svengali figure but just a racist instead of racist caricature", "a malevolent golem made from the flesh of incompetent middle school history teachers", "more or less the actual President, which should terrify you", "a vile man who deserves no platform larger than a street corner", "the reincarnation of Joseph Goebbels", "a literal monster", "an inflamed liver with legs and bad ideas", "a guy who literally called journalism the 'opposition party'", "who does not belong on the National Security Council", "a douchey 19 year-old college libertarian who got the pox, lapsed into a 30 year coma, and just woke up with some ideas about government", "a guy who wrote a bad fanfic of Titus Andronicus set in space", "definitely not a lizard in an ill-fitting meat-suit", "not a good person", "a lesser demon inhabiting the bloated corpse of Rasputin", "whose policy experience comes from having played the body of a homeless man on The West Wing"];
+var phrase = "";
+
+function newText(tag, text, style) {
+  var element = document.createElement(tag);
+  element.appendChild(document.createTextNode(text));
+  element.setAttribute('class', "some-rich-asshole-enhanced-add");
+  if (style) element.setAttribute('style', style);
+  return element;
+}
+
+var mode = "";
+
+var insertCalls = 0;
+function replacer(match, p1, offset, string)
 {
-  var prefixes = ["the", "some"];
-  var phrases = ["rich asshole", "weapons-grade plum", "witless fucking cocksplat", "weaselheaded fucknugget", "mangled apricot hellbeast", "clueless numpty", "bloviating fleshbag", "tiny-fingered, cheeto-faced, ferret-wearing shitgibbon", "cockwomble", "ludicrous tangerine ballbag", "toupeed fucktrumpet", "weaselheaded fucknugget", "short-fingered vulgarian", "free-floating misogynist", "thin-skinned tyrant", "disgraced racist", "talking combover", "cheeto-dusted bloviator", "bag of toxic sludge", "man-sized sebaceous cyst", "hairpiece come to life", "cartoon plutocrat", "cable news fever dream", "living youtube comment thread", "monument to hubris", "tantrum pumpkin", "marmalade manchild", "incoherent creamsicle", "mendacious mango", "ape in a suit", "stale dorito", "il douche", "lord dampnut", "cheez-it ceaușescu"];
-  var phrase = phrases[Math.floor(Math.random()*phrases.length)];
-  if(prefix && phrase != "il douche"){
-    phrase = prefixes[Math.floor(Math.random()*prefixes.length)]+" "+phrase;
-/*    if(phrase.match(/^a [aeiou]/)){
-      phrase = phrase.replace(/^a /, "an ");
+  realprefix = "";
+  if(mode == "theDevilHimself"){
+    if(p1 && p1.length > 0){
+      realprefix = p1;
+    } else if(prefix_phrases.includes(phrase)){
+//      realprefix = prefixes[Math.floor(Math.random()*prefixes.length)]+" "+v;
+      realprefix = "The";
     }
- */
-  }
-  if(caps_mode == "allcaps"){
-    return phrase.toUpperCase();
-  } else if(caps_mode == "firstcaps"){
-    return phrase.replace(/(^|\s)[a-z]/g,function(f){return f.toUpperCase();});
+    realprefix = realprefix + " ";
   } else {
-    return phrase;
+    string = offset;
+    offset = p1;
+  }
+  casedphrase = phrase;
+  if(match.match(/[A-Z]/) && !match.match(/[a-z]/)){
+    casedphrase = phrase.toUpperCase();
+    realprefix = realprefix.toUpperCase();
+  } else if(match.match(/[a-z]/) && !match.match(/[A-Z]/)){
+    casedphrase = phrase.toLowerCase();
+    realprefix = realprefix.toLowerCase();
+  }
+  console.log("Inserting "+realprefix + casedphrase+" for '"+match+"'");
+
+  return(realprefix + casedphrase);
+}
+
+function trumpCrotchDumplings(textNode)
+{
+	var v = textNode.nodeValue;
+  mode = "trumpCrotchDumplings";
+
+  var allphrases = prefix_phrases.concat(noprefix_phrases);
+  trumpphrase = allphrases[Math.floor(Math.random()*allphrases.length)];
+  if(prefix_phrases.includes(trumpphrase)){
+    trumpphrase = "The "+trumpphrase;
+  }
+
+  // The family get simpler patterns
+  phrase = "Eric (the Beavis-y one), Son of "+trumpphrase;
+	v = v.replace(/(?:Eric )(?:(?:Frederick|F|F\.) )?Trump/i, replacer);
+  phrase = "Donald Jr (the Butthead-y one), Son of "+trumpphrase;
+	v = v.replace(/(?:(?:Donald|Don) )(?:(?:John|J|J\.) )?Trump,? Jr\.?/i, replacer);
+  phrase = "First Trophy Wife of "+trumpphrase;
+	v = v.replace(/Ivana Trump/i, replacer);
+  phrase = "Second Trophy Wife of "+trumpphrase;
+	v = v.replace(/Marla Maples/i, replacer);
+  phrase = "Third Trophy Wife of "+trumpphrase;
+	v = v.replace(/Melania Trump/i, replacer);
+  phrase = "Ivanka, Daughter of "+trumpphrase;
+	v = v.replace(/Ivanka Trump/i, replacer);
+  phrase = "Tiffany, Daughter of "+trumpphrase;
+	v = v.replace(/Tiffany Trump/i, replacer);
+
+
+  if(textNode.nodeValue != v){
+    foundtrumps++;
+    textNode.nodeValue = v;
+  }
+
+}
+
+function theDevilHimself(textNode)
+{
+	var v = textNode.nodeValue;
+  mode = "theDevilHimself";
+//  var prefixes = ["some", "a", "the"];
+
+  var allphrases = prefix_phrases.concat(noprefix_phrases);
+  phrase = allphrases[Math.floor(Math.random()*allphrases.length)];
+
+	v = v.replace(/\b(?:(#|mr\.|the|a|some|president|presidential candidate|candidate|president-elect)\s*)?\b(?:donald\s*)?(?:(?:john|j|j\.)\s*)?\btrump\b/gi, replacer);
+
+  if(textNode.nodeValue != v){
+    foundtrumps++;
+    textNode.nodeValue = v;
+  }
+}
+
+function svengali(textNode)
+{
+	var v = textNode.nodeValue;
+  mode = "svengali";
+
+  if(bannon_phrases.length > 0){
+    var bannonphrase = bannon_phrases[Math.floor(Math.random()*bannon_phrases.length)];
+    var prebannon = v;
+    if(foundtrumps > 0){
+    	v = v.replace(/\b((?:(?:steve|steven|stephen)\s*)?(?:(?:k\.)\s*)?\bbannon)\b(?!\s\()/i, "$1 ("+bannonphrase+")");
+    } else {
+      // his surname is relatively common, don't bank on it being right without the Steve if a Trump hasn't been mentioned
+    	v = v.replace(/\b((?:(?:steve|steven|stephen)\s*)(?:(?:k\.)\s*)?\bbannon)\b(?!\s\()/i, "$1 ("+bannonphrase+")");
+    }
+    if(v != prebannon){
+      bannon_phrases.splice(bannon_phrases.indexOf(bannonphrase), 1);
+      textNode.nodeValue = v;
+    }
   }
 }
 
 function handleText(textNode)
 {
-	var v = textNode.nodeValue;
+  if ('classList' in textNode && element.classList.contains("some-rich-asshole-enhanced-add")){
+    alert("skipping "+textNode.nodeValue);
+    return;
+  }
+  trumpCrotchDumplings(textNode);
+  theDevilHimself(textNode);
+  svengali(textNode);
+
+//	v = v.replace(/([\.!\?][\n\s]*)\bTrump\b/gi, "$1"+_getPhrase("firstcaps", true));
+//	v = v.replace(/\b([tT]he|[aA]|[sS]ome)\b\s+\bdonald trump\b/gi, "$1 "+_getPhrase("firstcaps"));
+//	v = v.replace(/\bdonaldjtrump.com\b/gi, "SomeRichAsshole.com");
+//	v = v.replace(/\bthe donald\b/gi, _getPhrase(null, true));
+//	v = v.replace(/\.( )*\bTrump\b/gi, ". "+_getPhrase("firstcaps", true));
 	
-	v = v.replace(/\b(THE|A|SOME)\b\s+\bDONALD JOHN TRUMP\b/g, "$1 "+_getPhrase("allcaps"));
-	v = v.replace(/\b([tT]he|[aA]|[sS]ome)\b\s+\bDonald John Trump\b/g, "$1 "+_getPhrase("firstcaps"));
-	v = v.replace(/\b([tT]he|[aA]|[sS]ome)\b\s+\bdonald john trump\b/g, "$1 "+_getPhrase("firstcaps"));
-	v = v.replace(/\bDONALD JOHN TRUMP\b/g, _getPhrase("allcaps", true));
-	v = v.replace(/\bDonald John Trump\b/g, _getPhrase("firstcaps", true));
-	v = v.replace(/\bdonald john trump\b/g, _getPhrase(null, true));
-	v = v.replace(/^Donald John Trump$/g, _getPhrase("firstcaps", true));
-	v = v.replace(/\b(THE|A|SOME)\b\s+\bDONALD J\.? TRUMP\b/g, "$1 "+_getPhrase("allcaps"));
-	v = v.replace(/\b([tT]he|[aA]|[sS]ome)\b\s+\bDonald J\.? Trump\b/g, "$1 "+_getPhrase("firstcaps"));
-	v = v.replace(/\b([tT]he|[aA]|[sS]ome)\b\s+\bdonald j\.? trump\b/g, "$1 "+_getPhrase("firstcaps"));
-	v = v.replace(/\bDONALD J\.? TRUMP\b/g, _getPhrase("allcaps", true));
-	v = v.replace(/\bDonald J\.? Trump\b/g, _getPhrase("firstcaps", true));
-	v = v.replace(/\bdonald j\.? trump\b/g, _getPhrase(null, true));
-	v = v.replace(/([\.!\?][\n\s]*)\bTrump\b/g, "$1"+_getPhrase("firstcaps", true));
-	v = v.replace(/\bMR. TRUMP\b/g, "MR. "+_getPhrase("allcaps"));
-	v = v.replace(/\bMr. Trump\b/g, "Mr. "+_getPhrase("firstcaps"));
-	v = v.replace(/\bmr. trump\b/g, "mr. "+_getPhrase());
-	v = v.replace(/\bPRESIDENTIAL CANDIDATE TRUMP\b/g, _getPhrase("allcaps")+" WHO WANTS TO BE PRESIDENT");
-	v = v.replace(/\bPresidential Candidate Trump\b/g, _getPhrase()+" who wants to be president");
-	v = v.replace(/\bpresidential candidate trump\b/g, _getPhrase()+" who wants to be president");
-	v = v.replace(/\bPRESIDENTIAL CANDIDATE DONALD TRUMP\b/g, _getPhrase("allcaps")+" WHO WANTS TO BE PRESIDENT");
-	v = v.replace(/\bPresidential candidate Donald Trump\b/g, _getPhrase()+" who wants to be president");
-	v = v.replace(/\bpresidential candidate Donald Trump\b/gi, _getPhrase()+" who wants to be president");
-	v = v.replace(/\b(THE|A|SOME)\b\s+\bDONALD TRUMP\b/g, "$1 "+_getPhrase("allcaps"));
-	v = v.replace(/\b([tT]he|[aA]|[sS]ome)\b\s+\bDonald Trump\b/g, "$1 "+_getPhrase("firstcaps"));
-	v = v.replace(/\b([tT]he|[aA]|[sS]ome)\b\s+\bdonald trump\b/g, "$1 "+_getPhrase("firstcaps"));
-	v = v.replace(/\bDONALD TRUMP\b/g, _getPhrase("allcaps", true));
-	v = v.replace(/\bDonald Trump\b/g, _getPhrase("firstcaps", true));
-	v = v.replace(/^Donald Trump\b/g, _getPhrase("firstcaps", true));
-	v = v.replace(/\bdonald trump\b/g, _getPhrase(null, true));
-	v = v.replace(/\b#DONALDTRUMP\b/g, "#SOMERICHASSHOLE");
-	v = v.replace(/\b#DonaldTrump\b/gi, "#SomeRichAsshole");
-	v = v.replace(/\b#TRUMP\b/g, "#SOMERICHASSHOLE");
-	v = v.replace(/\b#Trump\b/gi, "#SomeRichAsshole");
-	v = v.replace(/\b#TRUMP2016\b/g, "#SOMERICHASSHOLE2016");
-	v = v.replace(/\b#Trump2016\b/gi, "#SomeRichAsshole2016");
-	v = v.replace(/\b#TEAMTRUMP\b/g, "#TEAMRICHASSHOLE");
-	v = v.replace(/\b#TeamTrump\b/gi, "#TeamRichAsshole");
-	v = v.replace(/\bTRUMP2016\b/g, "RICHASSHOLE2016");
-	v = v.replace(/\bTrump2016\b/gi, "RichAsshole2016");
-	v = v.replace(/\bdonaldjtrump.com\b/gi, "SomeRichAsshole.com");
-	v = v.replace(/\bTHE DONALD\b/g, _getPhrase("allcaps", true));
-	v = v.replace(/\bThe Donald\b/g, _getPhrase("firstcaps", true));
-	v = v.replace(/\bthe donald\b/g, _getPhrase(null, true));
-	v = v.replace(/\b(THE|A|SOME)\b\s+\bTRUMP\b/g, "$1 "+_getPhrase("allcaps"));
-	v = v.replace(/\b([tT]he|[aA]|[sS]ome)\b\s+\bTrump\b/g, "$1 "+_getPhrase("firstcaps"));
-	v = v.replace(/\bTRUMP\b/g, _getPhrase("allcaps", true));
-	v = v.replace(/\bTrump\b/g, _getPhrase("firstcaps", true));
-	v = v.replace(/^Trump\b/g, _getPhrase("firstcaps", true));
-	v = v.replace(/\.( )*\bTrump\b/g, ". "+_getPhrase("firstcaps", true));
-	
-	textNode.nodeValue = v;
 }
 
 walk(document.body);
