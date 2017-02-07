@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Some Rich Asshole Enhanced",
 	"version": "2.4",
-	"description": "Replaces the text 'Donald Trump' with one of a number of more colorful descriptors.",
+	"description": "Replaces He-Who-Must-Not-Be-Named's name, and those of some related individuals, with more colorful descriptors.",
 	"content_scripts":
 	[
 		{
