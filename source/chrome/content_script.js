@@ -1,3 +1,13 @@
+function saveConfig(key, val){
+  localStorage[key] = val;
+  return(val);
+}
+
+function getConfig(key){
+  return(localStorage[key]);
+}
+
+
 function walk(node)
 {
 	var child, next;
@@ -24,9 +34,9 @@ function walk(node)
 
 foundtrumps = 0;
 // you aspire to my level/ you aspire to malevolence
-var prefix_phrases = ["Rich Asshole", "Weapons-Grade Plum", "Witless Fucking Cocksplat", "Mangled Apricot Hellbeast", "Clueless Numpty", "Bloviating Fleshbag", "Tiny-Fingered, Cheeto-Faced, Ferret-Wearing Shitgibbon", "Cockwomble", "Ludicrous Tangerine Ballbag", "Toupeed Fucktrumpet", "Weaselheaded Fucknugget", "Short-Fingered Vulgarian", "Free-Floating Misogynist", "Thin-Skinned Tyrant", "Disgraced Racist", "Talking Combover", "Cheeto-Dusted Bloviator", "Bag of Toxic Sludge", "Man-Sized Sebaceous Cyst", "Hairpiece Come to Life", "Cartoon Plutocrat", "Cable News Fever Dream", "Living YouTube Comment Thread", "Monument to Hubris", "Tantrum Pumpkin", "Marmalade Manchild", "Incoherent Creamsicle", "Mendacious Mango", "Ape in a Suit", "Stale Dorito", "Notorious B.I.G.ot", "Steaming Orange Turd in the International Punch Bowl", "Nacho Cheese Golem", "Moldy Pumpkin Spice Latte", "Brightly Burning Trash Fire", "Sentient Hate-Balloon", "Lead Paint Addict", "Canteloupe Catastrophe", "Corned-Beef Dirigible", "Spray-Tanned Fart Balloon"];
+var prefix_phrases = ["Rich Asshole", "Weapons-Grade Plum", "Witless Fucking Cocksplat", "Mangled Apricot Hellbeast", "Clueless Numpty", "Bloviating Fleshbag", "Tiny-Fingered, Cheeto-Faced, Ferret-Wearing Shitgibbon", "Cockwomble", "Ludicrous Tangerine Ballbag", "Toupeed Fucktrumpet", "Weaselheaded Fucknugget", "Short-Fingered Vulgarian", "Free-Floating Misogynist", "Thin-Skinned Tyrant", "Disgraced Racist", "Talking Combover", "Cheeto-Dusted Bloviator", "Bag of Toxic Sludge", "Man-Sized Sebaceous Cyst", "Hairpiece Come to Life", "Cartoon Plutocrat", "Cable News Fever Dream", "Living YouTube Comment Thread", "Monument to Hubris", "Tantrum Pumpkin", "Marmalade Manchild", "Incoherent Creamsicle", "Mendacious Mango", "Ape in a Suit", "Stale Dorito", "Notorious B.I.G.ot", "Steaming Orange Turd in the International Punch Bowl", "Nacho Cheese Golem", "Moldy Pumpkin Spice Latte", "Brightly Burning Trash Fire", "Sentient Hate-Balloon", "Lead Paint Addict", "Canteloupe Catastrophe", "Corned-Beef Dirigible", "Spray-Tanned Fart Balloon", "Jack 'o Lantern Cum Blimp", "Bawbag"];
 // some sobriquets do not need a "the" or other title to make sense
-var noprefix_phrases = ["Il Douche", "Lord Dampnut", "Our National Nightmare", "Cheez-It Ceaușescu", "Lumpy Joffrey Baratheon", "Tropicana Jong-il", "Easy D"];
+var noprefix_phrases = ["Il Douche", "Lord Dampnut", "Our National Nightmare", "Cheez-It Ceaușescu", "Lumpy Joffrey Baratheon", "Tropicana Jong-il", "Easy D", "Agent Orange", "SCROTUS"];
 // Let's do Bannon too. Fuck that guy.
 var bannon_phrases = ["a self-serious pseudo-intellectual oil spill", "a hate-filled turnip", "potato blight with a mouth", "sort of a Svengali figure but just a racist instead of racist caricature", "a malevolent golem made from the flesh of incompetent middle school history teachers", "more or less the actual President, which should terrify you", "a vile man who deserves no platform larger than a street corner", "the reincarnation of Joseph Goebbels", "a literal monster", "an inflamed liver with legs and bad ideas", "a guy who literally called journalism the 'opposition party'", "who does not belong on the National Security Council", "a douchey 19 year-old college libertarian who got the pox, lapsed into a 30 year coma, and just woke up with some ideas about government", "a guy who wrote a bad fanfic of Titus Andronicus set in space", "definitely not a lizard in an ill-fitting meat-suit", "not a good person", "a lesser demon inhabiting the bloated corpse of Rasputin", "whose policy experience comes from having played the body of a homeless man on The West Wing", "the last descendant of House Harkonnen"];
 var phrase = "";
