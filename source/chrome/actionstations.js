@@ -1,14 +1,137 @@
 $(document).ready(function() {
+  chrome.storage.onChanged.addListener(function(changes, namespace) {
+    for (key in changes) {
+      var storageChange = changes[key];
+      console.log('Storage key "%s" in namespace "%s" changed. ' +
+                  'Old value was "%s", new value is "%s".',
+                  key,
+                  namespace,
+                  storageChange.oldValue,
+                  storageChange.newValue);
+    }
+  });
 
-  var disabled = getConfig("disable-actionstations");
-  var cache_age = getConfig("actionstations-cache-time");
-  var shrunk = getConfig("actionstations-shrunk");
-  var saved_actions = null;
-  try {
-    saved_actions = JSON.parse(getConfig("actionstations-actions"));
-  } catch(e){
-    saved_actions = null;
+  var global_disabled = false;
+  function disabledHandler(disabled){
+    if(disabled){
+      $("div#action-stations-widget").hide();
+      global_disabled = true;
+    } else {
+      $("div#action-stations-widget").show();
+      global_disabled = false;
+    }
   }
+
+  function shrinkHandler(shrunk){
+    if(shrunk == true){
+      $("div#action-stations-widget > div.tcycle").hide();
+      $("div#action-stations-widget > span.action-stations-expand").hide();
+      $("div#action-stations-widget").addClass("action-stations-shrunk");
+    } else {
+      $("div#action-stations-widget > div.tcycle").fadeIn(400);
+      $("div#action-stations-widget > span.action-stations-expand").fadeIn(400);
+      $("div#action-stations-widget").removeClass("action-stations-shrunk");
+    }
+  }
+
+  function cacheHandler(cache){
+    if(cache && ((new Date()).getTime() - cache['cache_age']) < 3600000 && cache['actions']){
+      var actions = JSON.parse(cache['actions']);
+      if(actions && actions["Items"]){
+        console.log("Cache hit, using "+actions["Items"].length+" cached items");
+        setWidgetText(actions);
+      } else {
+        console.log(cache);
+        console.log("Cache corrupted or too old, loading new actions");
+        loadActions();
+      }
+    } else {
+      if(!cache){
+        console.log("No cache, loading new actions");
+      } else {
+        console.log("Expired cache, loading new actions");
+      }
+      loadActions();
+    }
+    optionCallback("actionstations_skip_urls");
+  }
+
+  function setConfig(key, val){
+    var toSave = {};
+    toSave[key] = val;
+    chrome.storage.local.set(toSave, function() {
+    });
+  }
+
+  function skipHandler(urls, url, remove = false){
+    if(!urls){
+      urls = [];
+    }
+    if(url){
+      if(!remove){
+        urls.push(url);
+      } else {
+        var idx = urls.indexOf(url);
+        if (idx > -1) {
+          urls.splice(idx);
+        }
+      }
+    }
+    $("div.action-stations-expanded div.action-stations-widget-linkwrapper").each(function(){
+      var url = $(this).find("a").attr("href");
+      var idx = urls.indexOf(url);
+      var checkbox = $(this).find("input[type='checkbox']");
+      if (idx > -1) {
+        $(this).next("div.action-stations-timeleft").addClass("action-stations-donechecked");// XXX no worky, why?
+        $(this).addClass("action-stations-donechecked");
+        $(checkbox).prop("checked", true);
+      } else {
+        $(this).next("div.action-stations-timeleft").removeClass("action-stations-donechecked");// XXX no worky, why?
+        $(this).removeClass("action-stations-donechecked");
+        $(checkbox).prop("checked", false);
+      }
+    });
+    $("div#action-stations-widget > div.tcycle > a").each(function(){
+      var url = $(this).attr("href");
+      console.log("Should I hide "+url+"?");
+      var idx = urls.indexOf(url);
+      if (idx > -1) {
+      console.log("YES"); // XXX need to make this cooperate with tcycle somehow
+        $(this).hide();
+      } else {
+        $(this).show();
+      }
+    });
+    return(urls);
+  }
+
+  function optionCallback(key, setval = null, removeval = false){
+    chrome.storage.local.get([key], function(items) {
+      if(key == "actionstations_shrunk"){
+        if(items[key] == 1){
+          items[key] = true;
+        }
+        if(setval != null){
+          setConfig(key, setval);
+          shrinkHandler(setval);
+        } else {
+          shrinkHandler(items[key]);
+        }
+      } else if(key == "actionstations_actions_cache"){
+        cacheHandler(items[key]);
+      } else if(key == "actionstations_disabled"){
+        disabledHandler(items[key]);
+      } else if(key == "actionstations_skip_urls"){
+        var newurls = skipHandler(items[key], setval, removeval);
+        if(setval){
+          setConfig(key, newurls);
+        }
+      }
+    });
+  }
+
+  optionCallback("actionstations_disabled");
+  optionCallback("actionstations_actions_cache");
 
   function loadActions(expired = false){
     $.ajax({
@@ -39,12 +162,11 @@ $(document).ready(function() {
 
   function handleDone(checkbox){
     var myparent = $(checkbox).parents("div.action-stations-widget-linkwrapper");
+    var url = $(myparent).find("a").attr("href");
     if($(checkbox).prop("checked")){
-      $(myparent).addClass("action-stations-donechecked");
-      $(myparent).next("div.action-stations-timeleft").addClass("action-stations-donechecked");
+      optionCallback("actionstations_skip_urls", url, false)
     } else {
-      $(myparent).removeClass("action-stations-donechecked");
-      $(myparent).next("div.action-stations-timeleft").removeClass("action-stations-donechecked");
+      optionCallback("actionstations_skip_urls", url, true)
     }
   }
 
@@ -82,7 +204,7 @@ $(document).ready(function() {
       var checkBox = document.createElement('input');
       $(checkBox).attr('type', "checkbox");
       $(label).append(checkBox);
-      $(label).append("Done?");
+      $(label).append(" skip/done");
       $(linkWrapper).append(label);
 
       $("div#action-stations-widget > div.action-stations-expanded").append(linkWrapper);
@@ -126,12 +248,15 @@ $(document).ready(function() {
    */
 
 
-  if(!disabled){
+  if(!global_disabled){
     $(document).ajaxComplete(function(event, xhr, settings) {
       saved_actions = JSON.parse(xhr.responseText);
       setWidgetText(saved_actions);
-      cache_age = saveConfig("actionstations-cache-time", (new Date()).getTime());
-      saveConfig("actionstations-actions", xhr.responseText)
+      newcache = {
+        "cache_age": (new Date()).getTime(),
+        "actions": xhr.responseText
+      }
+      setConfig("actionstations_actions_cache", newcache)
     });
 
     var widget = document.createElement('div');
@@ -144,49 +269,32 @@ $(document).ready(function() {
     $(slider).attr("data-speed", "1500");
     $(slider).attr("data-timeout", "6000");
     $(slider).addClass("tcycle");
+    $(slider).hide();
     $(shrinkWrap).html("&#10052;");
     $(shrinkWrap).addClass("action-stations-shrinkwrap");
     $(expand).html("&#9858;");
     $(expand).addClass("action-stations-expand");
+    $(expand).hide();
     $(expanded).addClass("action-stations-expanded");
+    $(expanded).hide();
     $(widget).append(shrinkWrap);
     $(widget).append(slider);
     $(widget).append(expand);
     $(widget).append(expanded);
+    $(widget).addClass("action-stations-shrunk");
     $(widget).hide();
-    $(expanded).hide();
 
     $('body').append(widget);
-    if(((new Date()).getTime() - cache_age) < 3600000){
-      if(saved_actions && saved_actions["Items"]){
-        setWidgetText(saved_actions);
-      } else {
-        loadActions();
-      }
-    } else {
-      loadActions();
-    }
 
-    if(shrunk == 1){
-      $(slider).hide();
-      $(expand).hide();
-      $("div#action-stations-widget").addClass("action-stations-shrunk");
-    } else {
-      $("div#action-stations-widget > div.tcycle").show();
-    }
     $(shrinkWrap).click(function(){
-      if(shrunk == 1){
-        $("div#action-stations-widget > div.tcycle").fadeIn(400);
-        $("div#action-stations-widget > span.action-stations-expand").fadeIn(400);
-        $("div#action-stations-widget").removeClass("action-stations-shrunk");
-        shrunk = saveConfig("actionstations-shrunk", 0);
+      if($("div#action-stations-widget").hasClass("action-stations-shrunk")){
+        optionCallback("actionstations_shrunk", false)
       } else {
-        $("div#action-stations-widget > div.tcycle").hide();
-        $("div#action-stations-widget > span.action-stations-expand").hide();
-        $("div#action-stations-widget").addClass("action-stations-shrunk");
-        shrunk = saveConfig("actionstations-shrunk", 1);
+        optionCallback("actionstations_shrunk", true)
       }
     });
+
+    optionCallback("actionstations_shrunk");
 
   }
 });

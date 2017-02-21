@@ -1,10 +1,9 @@
-function saveConfig(key, val){
-  localStorage[key] = val;
-  return(val);
-}
 
-function getConfig(key){
-  return(localStorage[key]);
+/* Invoked from options.html to populate the page */
+function loadOptions(){
+  var opts = {
+    "sra-disable-actionstations": "Disable the Action Stations widget"
+  }
 }
 
 

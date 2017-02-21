@@ -12,6 +12,7 @@ div#action-stations-widget {
   border:double 1px gray;
   white-space:nowrap;
   font-family:arial,helvetica,sans-serif;
+  font-weight:normal;
   font-size:small;
   padding-left:0.5em;
   padding-right:0.5em;
@@ -21,6 +22,9 @@ div#action-stations-widget {
   background: linear-gradient(to bottom,  #f2825b 0%,#e55b2b 50%,#f07146 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2825b', endColorstr='#f07146',GradientType=0 ); /* IE6-9 */
 }
+div#action-stations-widget:hover {
+  opacity:1.0;
+}
 div#action-stations-widget > div.tcycle {
   display:table-cell;
   padding-bottom:0.25em;
@@ -29,6 +33,9 @@ div#action-stations-widget > div.tcycle {
 div#action-stations-widget > div.tcycle a {
   font-size:small;
   display:block;
+}
+div#action-stations-widget > div.tcycle a:hover {
+  text-decoration:underline;
 }
 div#action-stations-widget > div.action-stations-expanded {
   width:100%;
@@ -64,7 +71,7 @@ div#action-stations-widget div.action-stations-widget-linkwrapper div.action-sta
   font-family:arial,helvetica,sans-serif;
 }
 div#action-stations-widget div.action-stations-widget-linkwrapper div.action-stations-done input {
-  float:left;
+  vertical-align:middle;
 }
 div#action-stations-widget div.action-stations-widget-linkwrapper div.action-stations-timeleft {
   display:table-row;
@@ -98,6 +105,7 @@ div#action-stations-widget > span.action-stations-shrinkwrap {
 div#action-stations-widget a {
   padding-top:0.5em;
   font-family:arial,helvetica,sans-serif;
+  font-weight:normal;
   text-decoration:none;
   color:white;
 }
@@ -107,6 +115,7 @@ div.action-stations-expanded-head {
 }
 div.action-stations-expanded-head > h2 {
   display:table-cell;
+  font-weight:normal;
   color:white;
   font-size:large;
   font-family:arial,helvetica,sans-serif;

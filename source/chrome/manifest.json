@@ -3,6 +3,10 @@
 	"name": "Some Rich Asshole Enhanced",
 	"version": "3.0",
 	"description": "Replaces He-Who-Must-Not-Be-Named's name, and those of some related individuals, with more colorful descriptors.",
+  "options_page": "options.html",
+  "permissions": [
+    "storage"
+  ],
 	"content_scripts":
 	[
 		{
