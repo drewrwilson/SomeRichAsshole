@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
   chrome.storage.onChanged.addListener(function(changes, namespace) {
     for (key in changes) {
       var storageChange = changes[key];
@@ -7,7 +8,7 @@ $(document).ready(function() {
                   key,
                   namespace,
                   storageChange.oldValue,
-                  storageChange.newValue);
+                  JSON.stringify(storageChange.newValue, null, " "));
     }
   });
 
@@ -34,16 +35,33 @@ $(document).ready(function() {
     }
   }
 
-  function cacheHandler(cache){
+  function cacheHandler(cache, hide_url = null, unhide_url = false){
     if(cache && ((new Date()).getTime() - cache['cache_age']) < 3600000 && cache['actions']){
+      var hidden_urls = [];
+      if(cache['hide_urls']){
+        hidden_urls = JSON.parse(cache['hide_urls']);
+      }
+      if(hide_url){
+        if(!unhide_url){
+          hidden_urls.push(hide_url);
+        } else {
+          var idx = hidden_urls.indexOf(hide_url);
+          if (idx > -1) {
+            hidden_urls.splice(idx);
+          }
+        }
+        hidden_urls = $.uniqueSort(hidden_urls);
+        cache['hide_urls'] = JSON.stringify(hidden_urls);
+      }
+
+
       var actions = JSON.parse(cache['actions']);
+
       if(actions && actions["Items"]){
-        console.log("Cache hit, using "+actions["Items"].length+" cached items");
-        setWidgetText(actions);
+        setWidgetText(actions, hidden_urls);
       } else {
-        console.log(cache);
         console.log("Cache corrupted or too old, loading new actions");
-        loadActions();
+        loadActions(); // this will call us again, with fresh data
       }
     } else {
       if(!cache){
@@ -51,10 +69,12 @@ $(document).ready(function() {
       } else {
         console.log("Expired cache, loading new actions");
       }
-      loadActions();
+      loadActions(); // this will call us again, with fresh data
     }
-    optionCallback("actionstations_skip_urls");
+
+    return(cache);
   }
+
 
   function setConfig(key, val){
     var toSave = {};
@@ -63,48 +83,12 @@ $(document).ready(function() {
     });
   }
 
-  function skipHandler(urls, url, remove = false){
-    if(!urls){
-      urls = [];
-    }
-    if(url){
-      if(!remove){
-        urls.push(url);
-      } else {
-        var idx = urls.indexOf(url);
-        if (idx > -1) {
-          urls.splice(idx);
-        }
-      }
-    }
-    $("div.action-stations-expanded div.action-stations-widget-linkwrapper").each(function(){
-      var url = $(this).find("a").attr("href");
-      var idx = urls.indexOf(url);
-      var checkbox = $(this).find("input[type='checkbox']");
-      if (idx > -1) {
-        $(this).next("div.action-stations-timeleft").addClass("action-stations-donechecked");// XXX no worky, why?
-        $(this).addClass("action-stations-donechecked");
-        $(checkbox).prop("checked", true);
-      } else {
-        $(this).next("div.action-stations-timeleft").removeClass("action-stations-donechecked");// XXX no worky, why?
-        $(this).removeClass("action-stations-donechecked");
-        $(checkbox).prop("checked", false);
-      }
-    });
-    $("div#action-stations-widget > div.tcycle > a").each(function(){
-      var url = $(this).attr("href");
-      console.log("Should I hide "+url+"?");
-      var idx = urls.indexOf(url);
-      if (idx > -1) {
-      console.log("YES"); // XXX need to make this cooperate with tcycle somehow
-        $(this).hide();
-      } else {
-        $(this).show();
-      }
-    });
-    return(urls);
+  function skipHandler(hidden_urls){
+
+
   }
 
+  // XXX nah, gotta integrate this with the cache
   function optionCallback(key, setval = null, removeval = false){
     chrome.storage.local.get([key], function(items) {
       if(key == "actionstations_shrunk"){
@@ -118,14 +102,12 @@ $(document).ready(function() {
           shrinkHandler(items[key]);
         }
       } else if(key == "actionstations_actions_cache"){
-        cacheHandler(items[key]);
+        newcache = cacheHandler(items[key], setval, removeval);
+        if(setval != null){
+          setConfig(key, newcache);
+        }
       } else if(key == "actionstations_disabled"){
         disabledHandler(items[key]);
-      } else if(key == "actionstations_skip_urls"){
-        var newurls = skipHandler(items[key], setval, removeval);
-        if(setval){
-          setConfig(key, newurls);
-        }
       }
     });
   }
@@ -164,18 +146,19 @@ $(document).ready(function() {
     var myparent = $(checkbox).parents("div.action-stations-widget-linkwrapper");
     var url = $(myparent).find("a").attr("href");
     if($(checkbox).prop("checked")){
-      optionCallback("actionstations_skip_urls", url, false)
+      optionCallback("actionstations_actions_cache", url, false);
     } else {
-      optionCallback("actionstations_skip_urls", url, true)
+      optionCallback("actionstations_actions_cache", url, true);
     }
   }
 
-  function setWidgetText(jsonresp){
+  function setWidgetText(jsonresp, hidden_urls = []){
     $("div#action-stations-widget > div.tcycle").html("");
+    $("div#action-stations-widget > div.tcycle").off();
     $("div.action-stations-expanded").html("");
     var expanded_head = document.createElement('div');
     var expanded_head_text = document.createElement('h2');
-    $(expanded_head_text).text("Action Stations: #resist");
+    $(expanded_head_text).text("#resist: Action Stations");
     $(expanded_head).addClass("action-stations-expanded-head");
     $(expanded_head).append(expanded_head_text);
     var retract = document.createElement('span');
@@ -184,14 +167,20 @@ $(document).ready(function() {
     $(expanded_head).append(retract);
     $("div.action-stations-expanded").append(expanded_head);
     $("div.action-stations-widget-linkwrapper").html("");
+    var slide_count = 0;
     for (var i = 0; i < jsonresp["Items"].length; i++){
       $(slider).hide();
       var item = jsonresp["Items"][i];
+
+      var hidden_ent = hidden_urls.indexOf(item["URL"]);
       var aTag = document.createElement('a');
       aTag.setAttribute('href', item["URL"]);
       aTag.setAttribute('target', "_blank");
       $(aTag).html(item["Description"]);
-      $("div#action-stations-widget > div.tcycle").append(aTag);
+      if(hidden_ent < 0){
+        slide_count++;
+        $("div#action-stations-widget > div.tcycle").append(aTag);
+      }
 
       var linkWrapper = document.createElement('div');
       $(linkWrapper).addClass("action-stations-widget-linkwrapper");
@@ -212,10 +201,20 @@ $(document).ready(function() {
       var timeLeft = document.createElement('div');
       $(timeLeft).addClass("action-stations-timeleft");
       $(timeLeft).text(timeString(item["Expiration"]*1000));
+      if(hidden_ent >= 0){
+        $(timeLeft).addClass("action-stations-donechecked");
+        $(linkWrapper).addClass("action-stations-donechecked");
+        $(checkBox).prop("checked", true);
+      }
       $("div#action-stations-widget > div.action-stations-expanded").append(timeLeft);
     }
+    if(slide_count > 1){
+      $("div#action-stations-widget > div.tcycle").tcycle();
+    } else {
+      $("div#action-stations-widget > div.tcycle a").css("padding", "0px");
+    }
+
     $("div#action-stations-widget").fadeIn(800);
-    $("div#action-stations-widget > div.tcycle").tcycle();
     $("div#action-stations-widget span.action-stations-expand").click(function(){
       $("div#action-stations-widget > div.tcycle").hide();
       $("div#action-stations-widget > div.action-stations-expanded").fadeIn(200);
@@ -234,6 +233,15 @@ $(document).ready(function() {
     $("div#action-stations-widget div.action-stations-widget-linkwrapper input").change(function(){
       handleDone(this);
     });
+    $("div#action-stations-widget div.action-stations-widget-linkwrapper div.action-stations-done").click(function(){
+      var checkBox = $(this).parent().find("input");
+      if($(checkBox).prop("checked")){
+        $(checkBox).prop("checked", false);
+      } else {
+        $(checkBox).prop("checked", true);
+      }
+      handleDone(checkBox);
+    });
   }
 
   /*
@@ -250,13 +258,11 @@ $(document).ready(function() {
 
   if(!global_disabled){
     $(document).ajaxComplete(function(event, xhr, settings) {
-      saved_actions = JSON.parse(xhr.responseText);
-      setWidgetText(saved_actions);
       newcache = {
         "cache_age": (new Date()).getTime(),
         "actions": xhr.responseText
       }
-      setConfig("actionstations_actions_cache", newcache)
+      optionCallback("actionstations_actions_cache", newcache);
     });
 
     var widget = document.createElement('div');

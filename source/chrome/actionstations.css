@@ -68,6 +68,7 @@ div#action-stations-widget div.action-stations-widget-linkwrapper a {
 }
 div#action-stations-widget div.action-stations-widget-linkwrapper div.action-stations-done {
   display:table-cell;
+  cursor:default;
   font-family:arial,helvetica,sans-serif;
 }
 div#action-stations-widget div.action-stations-widget-linkwrapper div.action-stations-done input {
