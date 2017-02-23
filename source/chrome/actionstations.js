@@ -43,6 +43,7 @@ console.log("disabled handler called with "+disabled);
   }
 
   function cacheHandler(cache, hide_url = null, unhide_url = false){
+console.log("-- cacheHandler called");
     var hidden_urls = [];
 
     if(cache){
@@ -62,7 +63,9 @@ console.log("disabled handler called with "+disabled);
       }
     }
 
-    if(cache && ((new Date()).getTime() - cache['cache_age']) < 3600000 && cache['actions']){
+//    if(cache && ((new Date()).getTime() - cache['cache_age']) < 3600000 && cache['actions']){
+    if(cache && ((new Date()).getTime() - cache['cache_age']) < 60000 && cache['actions']){
+console.log(cache);
       var actions = JSON.parse(cache['actions']);
 
       if(actions && actions["Items"]){
@@ -142,11 +145,15 @@ console.log("disabled handler called with "+disabled);
           shrinkHandler(items[key]);
         }
       } else if(key == "actionstations_actions_cache"){
+console.log("-- optionCallback(actionstations_actions_cache) called");
         if(setval != null || hide_url != null){
+console.log("-- there's a value to set here, saving");
           newcache = cacheHandler(setval, hide_url, removeval);
           setConfig(key, newcache);
+          cacheHandler(newcache);
+        } else {
+          cacheHandler(items[key]);
         }
-        cacheHandler(items[key]);
       } else if(key == "actionstations_disabled"){
         if(setval != null){
           disabledHandler(setval);
@@ -168,6 +175,7 @@ console.log("disabled handler called with "+disabled);
   optionCallback("actionstations_actions_cache");
 
   function loadActions(expired = false){
+console.log("-- LoadActions called");
     $.ajax({
       url:"https://pu2jh2b68k.execute-api.us-east-1.amazonaws.com/prod/ActionStations",
       type: "GET",
@@ -205,6 +213,8 @@ console.log("disabled handler called with "+disabled);
   }
 
   function setWidgetText(jsonresp, hidden_urls = []){
+console.log("-- setWidgetText called");
+console.log(jsonresp["Items"]);
     $("div#action-stations-widget > div.tcycle").html("");
     $("div#action-stations-widget > div.tcycle").off();
     $("div.action-stations-expanded").html("");
@@ -315,6 +325,7 @@ console.log("disabled handler called with "+disabled);
       handleDone(checkBox);
     });
 
+    optionCallback("actionstations_shrunk")
     optionCallback("actionstations_theme");
   }
 
@@ -338,11 +349,12 @@ console.log("disabled handler called with "+disabled);
 
   if(!global_disabled){
     $(document).ajaxComplete(function(event, xhr, settings) {
+console.log("-- ajaxComplete called");
       var newcache = {
         "cache_age": (new Date()).getTime(),
         "actions": xhr.responseText
       }
-      var items = JSON.parse(xhr.responseText);
+//      var items = JSON.parse(xhr.responseText);
       optionCallback("actionstations_actions_cache", newcache);
     });
 
@@ -358,7 +370,7 @@ console.log("disabled handler called with "+disabled);
     $(slider).addClass("tcycle");
     $(slider).hide();
     $(shrinkWrap).addClass("action-stations-shrinkwrap");
-    $(shrinkWrap).html("&#10052;");
+    $(shrinkWrap).html("&#x0272A;");
     $(expand).html("&#9858;");
     $(expand).addClass("action-stations-expand");
     $(expand).hide();
@@ -381,7 +393,6 @@ console.log("disabled handler called with "+disabled);
       }
     });
 
-    optionCallback("actionstations_shrunk");
 
   }
 });

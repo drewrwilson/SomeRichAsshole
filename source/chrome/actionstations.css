@@ -30,12 +30,15 @@ div#action-stations-widget.action-stations-pink {
   color:black;
   border:2px solid red;
   background:LightPink;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fac695+0,f5ab66+47,ef8d31+100;Orange+3D+%232 */
-  background: #fac695; /* Old browsers */
-  background: -moz-linear-gradient(top,  #fac695 0%, #f5ab66 47%, #ef8d31 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top,  #fac695 0%,#f5ab66 47%,#ef8d31 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom,  #fac695 0%,#f5ab66 47%,#ef8d31 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fac695', endColorstr='#ef8d31',GradientType=0 ); /* IE6-9 */
+  background-color: #FFD1F3;
+  /* For WebKit (Safari, Chrome, etc) */
+  background: #FFD1F3 -webkit-gradient(linear, left top, left bottom, from(#FFD1D4), to(#FFD1F3)) no-repeat;
+  /* Mozilla,Firefox/Gecko */
+  background: #FFD1F3 -moz-linear-gradient(top, #FFD1D4, #FFD1F3) no-repeat;
+  /* IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFD1D4, endColorstr=#FFD1F3) no-repeat;
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFD1D4, endColorstr=#FFD1D4)" no-repeat;
 }
 div#action-stations-widget.action-stations-murica {
   color:DarkBlue;
@@ -195,9 +198,11 @@ div#action-stations-widget span.action-stations-shrinkwrap.action-stations-red {
 div#action-stations-widget span.action-stations-shrinkwrap.action-stations-pink {
   color:red;
 }
-div#action-stations-widget span.action-stations-shrinkwrap.action-stations-snowflake,
-div#action-stations-widget span.action-stations-shrinkwrap.action-stations-murica {
+div#action-stations-widget span.action-stations-shrinkwrap.action-stations-snowflake {
   color:blue;
+}
+div#action-stations-widget span.action-stations-shrinkwrap.action-stations-murica {
+  color:DarkBlue;
 }
 
 div#action-stations-widget a {
@@ -297,7 +302,9 @@ div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-
 div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-stations-pink {
   color:red;
 }
-div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-stations-snowflake,
-div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-stations-murica {
+div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-stations-snowflake {
   color:blue;
+}
+div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-stations-murica {
+  color:DarkBlue;
 }
