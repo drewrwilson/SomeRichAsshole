@@ -7,24 +7,71 @@ div#action-stations-widget {
   left:1em;
   bottom:2em;
   z-index:1000;
-  color:white;
   border-radius:0.7em;
-  border:double 1px gray;
   white-space:nowrap;
   font-family:arial,helvetica,sans-serif;
   font-weight:normal;
   font-size:small;
   padding-left:0.5em;
   padding-right:0.5em;
+}
+div#action-stations-widget.action-stations-red {
+  color:LightGoldenRodYellow ;
+  border:2px solid LightGoldenRodYellow ;
+  background:red;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cc0000+0,cc0000+100;Red+Flat */
+  background: #cc0000; /* Old browsers */
+  background: -moz-linear-gradient(top,  #cc0000 0%, #cc0000 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #cc0000 0%,#cc0000 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #cc0000 0%,#cc0000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#cc0000',GradientType=0 ); /* IE6-9 */
+}
+div#action-stations-widget.action-stations-pink {
+  color:black;
+  border:2px solid red;
+  background:LightPink;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fac695+0,f5ab66+47,ef8d31+100;Orange+3D+%232 */
+  background: #fac695; /* Old browsers */
+  background: -moz-linear-gradient(top,  #fac695 0%, #f5ab66 47%, #ef8d31 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #fac695 0%,#f5ab66 47%,#ef8d31 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #fac695 0%,#f5ab66 47%,#ef8d31 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fac695', endColorstr='#ef8d31',GradientType=0 ); /* IE6-9 */
+}
+div#action-stations-widget.action-stations-murica {
+  color:DarkBlue;
+  border:2px solid red;
+  background:white;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f1f1f1+27,e1e1e1+65,f6f6f6+100 */
+background: rgb(255,255,255); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(255,255,255,1) 0%, rgba(241,241,241,1) 27%, rgba(225,225,225,1) 65%, rgba(246,246,246,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(241,241,241,1) 27%,rgba(225,225,225,1) 65%,rgba(246,246,246,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(241,241,241,1) 27%,rgba(225,225,225,1) 65%,rgba(246,246,246,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+div#action-stations-widget.action-stations-snowflake {
+  color:DarkBlue;
+  border:2px solid LightBlue;
+  background:white;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#feffff+0,ddf1f9+35,d5e6ed+100 */
+  background: #feffff; /* Old browsers */
+  background: -moz-linear-gradient(top,  #feffff 0%, #ddf1f9 35%, #d5e6ed 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #feffff 0%,#ddf1f9 35%,#d5e6ed 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #feffff 0%,#ddf1f9 35%,#d5e6ed 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#d5e6ed',GradientType=0 ); /* IE6-9 */
+}
+div#action-stations-widget.action-stations-orange {
+  border:2px solid gray;
+  color:white;
   background: #f2825b; /* Old browsers */
   background: -moz-linear-gradient(top,  #f2825b 0%, #e55b2b 50%, #f07146 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top,  #f2825b 0%,#e55b2b 50%,#f07146 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom,  #f2825b 0%,#e55b2b 50%,#f07146 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2825b', endColorstr='#f07146',GradientType=0 ); /* IE6-9 */
+  -webkit-font-smoothing:auto;
 }
-div#action-stations-widget:hover {
-  opacity:1.0;
-}
+
+
 div#action-stations-widget > div.tcycle {
   display:table-cell;
   padding-bottom:0.25em;
@@ -34,6 +81,7 @@ div#action-stations-widget > div.tcycle a {
   font-size:small;
   display:block;
 }
+
 div#action-stations-widget > div.tcycle a:hover {
   text-decoration:underline;
 }
@@ -47,11 +95,48 @@ div#action-stations-widget > div.action-stations-expanded {
 div#action-stations-widget > div.action-stations-expanded a {
   display:block;
   font-size:medium;
-  color:white;
 }
-div#action-stations-widget div.action-stations-widget-linkwrapper:hover {
+
+div#action-stations-widget div.action-stations-widget-linkwrapper.action-stations-orange:hover {
   background-color:DarkOrange;
 }
+div#action-stations-widget > div.action-stations-expanded a.action-stations-orange,
+div#action-stations-widget > div.tcycle a.action-stations-orange {
+  color:white;
+}
+
+div#action-stations-widget div.action-stations-widget-linkwrapper.action-stations-pink:hover {
+  background-color:white;
+}
+div#action-stations-widget > div.action-stations-expanded a.action-stations-pink,
+div#action-stations-widget > div.tcycle a.action-stations-pink {
+  color:black;
+}
+
+div#action-stations-widget div.action-stations-widget-linkwrapper.action-stations-red:hover {
+  background-color:LightPink;
+}
+div#action-stations-widget > div.action-stations-expanded a.action-stations-red,
+div#action-stations-widget > div.tcycle a.action-stations-red {
+  color:LightGoldenRodYellow ;
+}
+
+div#action-stations-widget div.action-stations-widget-linkwrapper.action-stations-snowflake:hover {
+  background-color:AliceBlue;
+}
+div#action-stations-widget > div.action-stations-expanded a.action-stations-snowflake,
+div#action-stations-widget > div.tcycle a.action-stations-snowflake {
+  color:DarkBlue;
+}
+
+div#action-stations-widget div.action-stations-widget-linkwrapper.action-stations-murica:hover {
+  background-color:AliceBlue;
+}
+div#action-stations-widget > div.action-stations-expanded a.action-stations-murica,
+div#action-stations-widget > div.tcycle a.action-stations-murica {
+  color:DarkBlue;
+}
+
 div#action-stations-widget div.action-stations-widget-linkwrapper {
   width:100%;
   position:relative;
@@ -95,20 +180,31 @@ div#action-stations-widget > span.action-stations-expand {
 div#action-stations-widget > span.action-stations-shrinkwrap {
   padding-right:0.5em;
   padding-left:0.2em;
-  padding-bottom:0.25em;
-  padding-top:0.25em;
+  padding-bottom:0px;
+  padding-top:0px;
   margin:0px;
   display:table-cell;
   cursor:pointer;
-  font-size:large;
+  font-size:x-large;
   vertical-align:middle;
 }
+
+div#action-stations-widget span.action-stations-shrinkwrap.action-stations-red {
+  color:yellow;
+}
+div#action-stations-widget span.action-stations-shrinkwrap.action-stations-pink {
+  color:red;
+}
+div#action-stations-widget span.action-stations-shrinkwrap.action-stations-snowflake,
+div#action-stations-widget span.action-stations-shrinkwrap.action-stations-murica {
+  color:blue;
+}
+
 div#action-stations-widget a {
   padding-top:0.5em;
   font-family:arial,helvetica,sans-serif;
   font-weight:normal;
   text-decoration:none;
-  color:white;
 }
 div.action-stations-expanded-head {
   display:table-row;
@@ -117,20 +213,38 @@ div.action-stations-expanded-head {
 div.action-stations-expanded-head > h2 {
   display:table-cell;
   font-weight:normal;
-  color:white;
   font-size:large;
   font-family:arial,helvetica,sans-serif;
-  border-bottom:2px dotted gray;
   padding-bottom:0.5em;
 }
 div.action-stations-expanded-head > span {
   display:table-cell;
-  border-bottom:2px dotted gray;
   font-family:arial,helvetica,sans-serif;
   text-align:right;
   font-size:x-large;
   padding-bottom:0.5em;
   cursor:pointer;
+}
+
+div.action-stations-expanded-head > h2.action-stations-orange,
+div.action-stations-expanded-head > span.action-stations-orange {
+  border-bottom:2px dotted gray;
+}
+div.action-stations-expanded-head > h2.action-stations-pink,
+div.action-stations-expanded-head > span.action-stations-pink {
+  border-bottom:2px dotted red;
+}
+div.action-stations-expanded-head > h2.action-stations-red,
+div.action-stations-expanded-head > span.action-stations-red {
+  border-bottom:2px dotted yellow;
+}
+div.action-stations-expanded-head > h2.action-stations-snowflake,
+div.action-stations-expanded-head > span.action-stations-snowflake {
+  border-bottom:2px dotted DarkBlue;
+}
+div.action-stations-expanded-head > h2.action-stations-murica,
+div.action-stations-expanded-head > span.action-stations-murica {
+  border-bottom:2px dotted blue;
 }
 
 div#action-stations-widget div.action-stations-timeleft.action-stations-donechecked,
@@ -154,4 +268,36 @@ div#action-stations-widget.action-stations-shrunk > span.action-stations-shrinkw
   width:1em;
   line-height:1em;
   height:1em;
+}
+
+div#action-stations-widget a.action-stations-settings-button,
+div#action-stations-widget span.action-stations-shrinkwrap-from-expanded {
+  padding-right:0.5em;
+  padding-left:0.2em;
+  padding-top:0px;
+  font-size:x-large;
+  vertical-align:top;
+  margin:0px;
+  display:inline;
+  cursor:pointer;
+}
+div#action-stations-widget span.action-stations-retract {
+  font-size:x-large;
+  padding-bottom:0px;
+  vertical-align:top;
+}
+
+div#action-stations-widget a.action-stations-settings-button {
+  display:inline-block;
+  float:right;
+}
+div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-stations-red {
+  color:yellow;
+}
+div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-stations-pink {
+  color:red;
+}
+div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-stations-snowflake,
+div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-stations-murica {
+  color:blue;
 }

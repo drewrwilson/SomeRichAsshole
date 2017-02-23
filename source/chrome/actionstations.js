@@ -14,10 +14,13 @@ $(document).ready(function() {
 
   var global_disabled = false;
   function disabledHandler(disabled){
+console.log("disabled handler called with "+disabled);
     if(disabled){
+      $("body#actionstations-options-page input.actionstations-disable").prop("checked", true);
       $("div#action-stations-widget").hide();
       global_disabled = true;
     } else {
+      $("body#actionstations-options-page input.actionstations-disable").prop("checked", false);
       $("div#action-stations-widget").show();
       global_disabled = false;
     }
@@ -27,17 +30,22 @@ $(document).ready(function() {
     if(shrunk == true){
       $("div#action-stations-widget > div.tcycle").hide();
       $("div#action-stations-widget > span.action-stations-expand").hide();
+      $("div#action-stations-widget span.action-stations-shrinkwrap").show();
+      $("div#action-stations-widget > div.action-stations-expanded").hide();
       $("div#action-stations-widget").addClass("action-stations-shrunk");
+      $("div#action-stations-widget").addClass("action-stations-shrinkwrap-from-expanded");
     } else {
       $("div#action-stations-widget > div.tcycle").fadeIn(400);
       $("div#action-stations-widget > span.action-stations-expand").fadeIn(400);
       $("div#action-stations-widget").removeClass("action-stations-shrunk");
+      $("div#action-stations-widget").removeClass("action-stations-shrinkwrap-from-expanded");
     }
   }
 
   function cacheHandler(cache, hide_url = null, unhide_url = false){
-    if(cache && ((new Date()).getTime() - cache['cache_age']) < 3600000 && cache['actions']){
-      var hidden_urls = [];
+    var hidden_urls = [];
+
+    if(cache){
       if(cache['hide_urls']){
         hidden_urls = JSON.parse(cache['hide_urls']);
       }
@@ -51,10 +59,10 @@ $(document).ready(function() {
           }
         }
         hidden_urls = $.uniqueSort(hidden_urls);
-        cache['hide_urls'] = JSON.stringify(hidden_urls);
       }
+    }
 
-
+    if(cache && ((new Date()).getTime() - cache['cache_age']) < 3600000 && cache['actions']){
       var actions = JSON.parse(cache['actions']);
 
       if(actions && actions["Items"]){
@@ -67,9 +75,13 @@ $(document).ready(function() {
       if(!cache){
         console.log("No cache, loading new actions");
       } else {
-        console.log("Expired cache, loading new actions");
+        var cache_age = ((new Date()).getTime() - cache['cache_age'])/3600000;
+        console.log("Expired cache ("+cache_age+" hours), loading new actions");
       }
       loadActions(); // this will call us again, with fresh data
+    }
+    if(cache){
+      cache['hide_urls'] = JSON.stringify(hidden_urls);
     }
 
     return(cache);
@@ -83,13 +95,41 @@ $(document).ready(function() {
     });
   }
 
-  function skipHandler(hidden_urls){
-
-
+  function themeHandler(theme = null){
+    if(!theme){
+      theme = "murica";
+    }
+    // 9774= peace, 9770= star and crescent
+    var themes = {
+      "orange": "&#9762;",
+      "snowflake": "&#10052;",
+      "murica": "&#x0272A;",
+      "pink": "&#x02764;",
+      "red": "&#9773;"
+    };
+    console.log("themeHandler called: "+theme);
+    $("body#actionstations-options-page input.actionstations-theme").each(function(){
+      if($(this).val() == theme){
+        $(this).prop("checked", true);
+      } else {
+        $(this).prop("checked", false);
+      }
+    });
+    var themeselector = "div#action-stations-widget, div#action-stations-widget > div.tcycle a, div#action-stations-widget > div.action-stations-expanded a, div.action-stations-expanded-head > h2, div.action-stations-expanded-head > span, div#action-stations-widget span.action-stations-shrinkwrap, div.action-stations-expanded span.action-stations-shrinkwrap-from-expanded";
+//    for (t=0; t<themes.length; t++){
+    Object.keys(themes).forEach(function (t) {
+      if (t == theme){
+        console.log("Setting ActionStations color scheme to action-stations-"+t);
+        $(themeselector).addClass("action-stations-"+t);
+        $("div#action-stations-widget span.action-stations-shrinkwrap, div.action-stations-expanded span.action-stations-shrinkwrap-from-expanded").html(themes[t]);
+      } else {
+        $(themeselector).removeClass("action-stations-"+t);
+      }
+    });
   }
 
   // XXX nah, gotta integrate this with the cache
-  function optionCallback(key, setval = null, removeval = false){
+  function optionCallback(key, setval = null, hide_url = null, removeval = false){
     chrome.storage.local.get([key], function(items) {
       if(key == "actionstations_shrunk"){
         if(items[key] == 1){
@@ -102,12 +142,24 @@ $(document).ready(function() {
           shrinkHandler(items[key]);
         }
       } else if(key == "actionstations_actions_cache"){
-        newcache = cacheHandler(items[key], setval, removeval);
-        if(setval != null){
+        if(setval != null || hide_url != null){
+          newcache = cacheHandler(setval, hide_url, removeval);
           setConfig(key, newcache);
         }
+        cacheHandler(items[key]);
       } else if(key == "actionstations_disabled"){
-        disabledHandler(items[key]);
+        if(setval != null){
+          disabledHandler(setval);
+        } else {
+          disabledHandler(items[key]);
+        }
+      } else if(key == "actionstations_theme"){
+        if(setval != null){
+          setConfig(key, setval);
+          themeHandler(setval);
+        } else {
+          themeHandler(items[key]);
+        }
       }
     });
   }
@@ -146,9 +198,9 @@ $(document).ready(function() {
     var myparent = $(checkbox).parents("div.action-stations-widget-linkwrapper");
     var url = $(myparent).find("a").attr("href");
     if($(checkbox).prop("checked")){
-      optionCallback("actionstations_actions_cache", url, false);
+      optionCallback("actionstations_actions_cache", null, url, false);
     } else {
-      optionCallback("actionstations_actions_cache", url, true);
+      optionCallback("actionstations_actions_cache", null, url, true);
     }
   }
 
@@ -158,9 +210,21 @@ $(document).ready(function() {
     $("div.action-stations-expanded").html("");
     var expanded_head = document.createElement('div');
     var expanded_head_text = document.createElement('h2');
-    $(expanded_head_text).text("#resist: Action Stations");
+    var shrinkWrap = document.createElement('span');
+    var settingsButton = document.createElement("a");
+    $(shrinkWrap).addClass("action-stations-shrinkwrap-from-expanded");
+    $(expanded_head_text).text(" #resist: Action Stations");
+    $(expanded_head_text).prepend(shrinkWrap);
+    $(expanded_head_text).append(settingsButton);
     $(expanded_head).addClass("action-stations-expanded-head");
     $(expanded_head).append(expanded_head_text);
+    $(settingsButton).html("&#9881;");
+    $(settingsButton).addClass("action-stations-settings-button");
+    settingsButton.title = "Settings";
+    settingsButton.href = "chrome-extension://iakjefalhkkcomjjknimjicfhbnoadmc/options.html";
+    settingsButton.target = "_blank";
+    $(expanded_head_text).prepend(settingsButton);
+
     var retract = document.createElement('span');
     $(retract).html("&#9858;");
     $(retract).addClass("action-stations-retract");
@@ -230,6 +294,14 @@ $(document).ready(function() {
 
     });
 
+    $(shrinkWrap).click(function(){
+      if($("div#action-stations-widget").hasClass("action-stations-shrinkwrap-from-expanded")){
+        optionCallback("actionstations_shrunk", false)
+      } else {
+        optionCallback("actionstations_shrunk", true)
+      }
+    });
+
     $("div#action-stations-widget div.action-stations-widget-linkwrapper input").change(function(){
       handleDone(this);
     });
@@ -242,6 +314,8 @@ $(document).ready(function() {
       }
       handleDone(checkBox);
     });
+
+    optionCallback("actionstations_theme");
   }
 
   /*
@@ -255,13 +329,20 @@ $(document).ready(function() {
   }
    */
 
+  $("#actionstations-options-page input.actionstations-disable").change(function(){
+    optionCallback("actionstations_disabled", $(this).prop("checked"));
+  });
+  $("#actionstations-options-page input.actionstations-theme").change(function(){
+    optionCallback("actionstations_theme", $(this).val());
+  });
 
   if(!global_disabled){
     $(document).ajaxComplete(function(event, xhr, settings) {
-      newcache = {
+      var newcache = {
         "cache_age": (new Date()).getTime(),
         "actions": xhr.responseText
       }
+      var items = JSON.parse(xhr.responseText);
       optionCallback("actionstations_actions_cache", newcache);
     });
 
@@ -276,8 +357,8 @@ $(document).ready(function() {
     $(slider).attr("data-timeout", "6000");
     $(slider).addClass("tcycle");
     $(slider).hide();
-    $(shrinkWrap).html("&#10052;");
     $(shrinkWrap).addClass("action-stations-shrinkwrap");
+    $(shrinkWrap).html("&#10052;");
     $(expand).html("&#9858;");
     $(expand).addClass("action-stations-expand");
     $(expand).hide();

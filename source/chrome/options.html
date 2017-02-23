@@ -1,9 +1,25 @@
 <html>
 <head>
 	<title>Options for Action Stations</title>
+  <link rel="stylesheet" href="actionstations.css">
+	<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="jquery.tcycle.js"></script>
 	<script type="text/javascript" src="actionstations.js"></script>
 </head>
-<body onload="loadOptions()">
+<body id="actionstations-options-page">
+  <div>
+    <h2>ActionStations widget theme</h2>
+    <input type="radio" name="as-theme" class="actionstations-theme" value="orange">Orange Nightmare<br />
+    <input type="radio" name="as-theme" class="actionstations-theme" value="snowflake">Snowflake<br />
+    <input type="radio" name="as-theme" class="actionstations-theme" value="murica">Captain America<br />
+    <input type="radio" name="as-theme" class="actionstations-theme" value="pink">Think Pink<br />
+    <input type="radio" name="as-theme" class="actionstations-theme" value="red">Товарищ<br />
+  </div>
+  <br />
+  <div>
+    <label for="as-disable">Disable the ActionStations widget</label>
+    <input type="checkbox" name="as-disable" class="actionstations-disable" value="as-disable">
+  </div>
 	<!--button onclick="saveOptions()">Save</button-->
 	<br />
 	<!--button onclick="eraseOptions()">Restore defaults</button-->
