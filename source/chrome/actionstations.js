@@ -29,6 +29,10 @@ $(document).ready(function() {
 
   function shrinkHandler(shrunk){
     if(shrunk == true){
+      if(pre_expand_loc && post_expand_loc && post_expand_loc.top == $("div#action-stations-widget").position().top){
+        $("div#action-stations-widget").css({'top': pre_expand_loc.top, 'left' : post_expand_loc.left});
+        pre_expand_loc = post_expand_loc = null;
+      }
       $("div#action-stations-widget > div.tcycle").hide();
       $("div#action-stations-widget > a.action-stations-expand").hide();
       $("div#action-stations-widget a.action-stations-shrinkwrap").show();
@@ -210,6 +214,8 @@ $(document).ready(function() {
     }
   }
 
+  var pre_expand_loc = null;
+  var post_expand_loc = null;
   function setWidgetText(jsonresp, hidden_urls = []){
     var expanded = false;
     var standard = false;
@@ -302,13 +308,29 @@ $(document).ready(function() {
 
     $("div#action-stations-widget").fadeIn(800);
     $("div#action-stations-widget a.action-stations-expand").click(function(){
+      var box_height = $("div#action-stations-widget-box").height();
+      var widget_height = $("div#action-stations-widget").height();
+      var widget_loc = $("div#action-stations-widget").position();
+      pre_expand_loc = widget_loc;
       $("div#action-stations-widget > div.tcycle").hide();
       $("div#action-stations-widget > div.action-stations-expanded").fadeIn(200);
+      var exp_height = $("div#action-stations-widget > div.action-stations-expanded").height();
+      if((widget_loc.top + exp_height) > box_height){
+        var diff = (exp_height - widget_height)+10;
+        $("div#action-stations-widget").css({'top': widget_loc.top-diff, 'left' : widget_loc.left});
+      }
+      post_expand_loc = $("div#action-stations-widget").position();
       $("div#action-stations-widget > a.action-stations-expand").hide();
       $("div#action-stations-widget > a.action-stations-shrinkwrap").hide();
 
     });
     $("div#action-stations-widget a.action-stations-retract").click(function(){
+      // if we have moved since last time, restore the smaller widget to its
+      // previous location
+      if(pre_expand_loc && post_expand_loc && post_expand_loc.top == $("div#action-stations-widget").position().top){
+        $("div#action-stations-widget").css({'top': pre_expand_loc.top, 'left' : post_expand_loc.left});
+        pre_expand_loc = post_expand_loc = null;
+      }
       $("div#action-stations-widget > div.tcycle").fadeIn(200);
       $("div#action-stations-widget > div.action-stations-expanded").hide();
       $("div#action-stations-widget > a.action-stations-expand").show();
@@ -388,11 +410,20 @@ $(document).ready(function() {
     });
 
     var widget = document.createElement('div');
+    var box = document.createElement('div');
     var slider = document.createElement('div');
     var shrinkWrap = document.createElement('a');
     var expand = document.createElement('a');
     var expanded = document.createElement('div');
+    $(box).attr("id", "action-stations-widget-box");
     $(widget).attr("id", "action-stations-widget");
+    $(widget).draggable({
+//      cancel: "div.tcycle > a, a.action-stations-expand, a.action-stations-retract, div.action-stations-widget-linkwrapper",
+      snap: false,
+//      opacity: 0.7,
+//      helper: "clone",
+      containment: "div#action-stations-widget-box"
+    });
     $(slider).attr("data-fx", "scroll");
     $(slider).attr("data-speed", "1500");
     $(slider).attr("data-timeout", "6000");
@@ -414,7 +445,10 @@ $(document).ready(function() {
     $(widget).addClass("action-stations-shrunk");
     $(widget).hide();
 
-    $('body').append(widget);
+    $('body').append(box);
+    $(box).append(widget);
+    var topPos = $(box).height() - $(widget).height()*4;
+    $(widget).css({'top': topPos, 'left' : "1em"});
 
     $(shrinkWrap).click(function(){
       if($("div#action-stations-widget").hasClass("action-stations-shrunk")){

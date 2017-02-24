@@ -1,19 +1,27 @@
 
-div#action-stations-widget {
+div#action-stations-widget-box {
   position:fixed;
+  bottom:0px;
+  left:0px;
+  width:100%;
+  height:100%;
+  border:0px;
+  background:transparent;
+  pointer-events: none
+}
+div#action-stations-widget {
   display:table;
+  pointer-events:auto;
   text-align:left;
   line-height:1em;
-  left:1em;
-  bottom:2em;
   z-index:1000;
   border-radius:0.7em;
   white-space:nowrap;
   font-family:arial,helvetica,sans-serif;
   font-weight:normal;
   font-size:small;
-  padding-left:0.5em;
-  padding-right:0.5em;
+  padding-left:1em;
+  padding-right:1em;
 }
 body#actionstations-options-page {
   font-size:large;
@@ -121,6 +129,8 @@ div#action-stations-widget > div.action-stations-expanded {
   width:100%;
   height:100%;
   display:table;
+  bottom:0px;
+  position:relative;
   padding-bottom:1em;
   padding-top:1em;
 }
