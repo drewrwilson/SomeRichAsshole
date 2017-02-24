@@ -15,6 +15,31 @@ div#action-stations-widget {
   padding-left:0.5em;
   padding-right:0.5em;
 }
+body#actionstations-options-page {
+  font-size:large;
+  text-align:left;
+}
+body#actionstations-options-page label {
+  padding:0.3em;
+  margin-bottom:0.2em;
+  font-size:large;
+  border-radius:0.2em;
+  display:inline-block;
+}
+body#actionstations-options-page label.dradis,
+div#action-stations-widget.action-stations-dradis {
+  color:MediumSpringGreen;
+  border:2px solid DodgerBlue;
+  background:#222222;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,3b516d+100 */
+background: #000000; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  #000000 0%, #3b516d 100%); /* FF3.6-15 */
+background: -webkit-radial-gradient(center, ellipse cover,  #000000 0%,#3b516d 100%); /* Chrome10-25,Safari5.1-6 */
+background: radial-gradient(ellipse at center,  #000000 0%,#3b516d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#3b516d',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+body#actionstations-options-page label.red,
 div#action-stations-widget.action-stations-red {
   color:LightGoldenRodYellow ;
   border:2px solid LightGoldenRodYellow ;
@@ -26,6 +51,7 @@ div#action-stations-widget.action-stations-red {
   background: linear-gradient(to bottom,  #cc0000 0%,#cc0000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#cc0000',GradientType=0 ); /* IE6-9 */
 }
+body#actionstations-options-page label.pink,
 div#action-stations-widget.action-stations-pink {
   color:black;
   border:2px solid red;
@@ -40,6 +66,7 @@ div#action-stations-widget.action-stations-pink {
   /* IE 8 */
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFD1D4, endColorstr=#FFD1D4)" no-repeat;
 }
+body#actionstations-options-page label.murica,
 div#action-stations-widget.action-stations-murica {
   color:DarkBlue;
   border:2px solid red;
@@ -52,6 +79,7 @@ background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(241,241,241,1) 
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 
 }
+body#actionstations-options-page label.snowflake,
 div#action-stations-widget.action-stations-snowflake {
   color:DarkBlue;
   border:2px solid LightBlue;
@@ -63,6 +91,7 @@ div#action-stations-widget.action-stations-snowflake {
   background: linear-gradient(to bottom,  #feffff 0%,#ddf1f9 35%,#d5e6ed 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#d5e6ed',GradientType=0 ); /* IE6-9 */
 }
+body#actionstations-options-page label.orange,
 div#action-stations-widget.action-stations-orange {
   border:2px solid gray;
   color:white;
@@ -95,7 +124,7 @@ div#action-stations-widget > div.action-stations-expanded {
   padding-bottom:1em;
   padding-top:1em;
 }
-div#action-stations-widget > div.action-stations-expanded a {
+div#action-stations-widget > div.action-stations-expanded div.action-stations-widget-linkwrapper a {
   display:block;
   font-size:medium;
 }
@@ -109,19 +138,28 @@ div#action-stations-widget > div.tcycle a.action-stations-orange {
 }
 
 div#action-stations-widget div.action-stations-widget-linkwrapper.action-stations-pink:hover {
-  background-color:white;
+  background-color:LightPink;
 }
 div#action-stations-widget > div.action-stations-expanded a.action-stations-pink,
 div#action-stations-widget > div.tcycle a.action-stations-pink {
   color:black;
 }
 
+div#action-stations-widget div.action-stations-widget-linkwrapper.action-stations-dradis:hover {
+  background-color:DarkBlue;
+}
+div#action-stations-widget > div.action-stations-expanded a.action-stations-dradis,
+div#action-stations-widget > div.tcycle a.action-stations-dradis {
+  color:MediumSpringGreen;
+}
+
+
 div#action-stations-widget div.action-stations-widget-linkwrapper.action-stations-red:hover {
-  background-color:LightPink;
+  background-color:red;
 }
 div#action-stations-widget > div.action-stations-expanded a.action-stations-red,
 div#action-stations-widget > div.tcycle a.action-stations-red {
-  color:LightGoldenRodYellow ;
+  color:LightGoldenRodYellow;
 }
 
 div#action-stations-widget div.action-stations-widget-linkwrapper.action-stations-snowflake:hover {
@@ -133,7 +171,7 @@ div#action-stations-widget > div.tcycle a.action-stations-snowflake {
 }
 
 div#action-stations-widget div.action-stations-widget-linkwrapper.action-stations-murica:hover {
-  background-color:AliceBlue;
+  background-color:white;
 }
 div#action-stations-widget > div.action-stations-expanded a.action-stations-murica,
 div#action-stations-widget > div.tcycle a.action-stations-murica {
@@ -170,17 +208,20 @@ div#action-stations-widget div.action-stations-widget-linkwrapper div.action-sta
   width:100%;
 }
 
-div#action-stations-widget > span.action-stations-expand {
+div#action-stations-widget > a.action-stations-expand {
   padding-right:0.2em;
   padding-left:0.5em;
-  padding-bottom:0.25em;
+  padding-top:0px;
+  padding-bottom:0px;
+  height:100%;
+  width:auto;
   margin:0px;
   display:table-cell;
   cursor:pointer;
   font-size:large;
   vertical-align:middle;
 }
-div#action-stations-widget > span.action-stations-shrinkwrap {
+div#action-stations-widget > a.action-stations-shrinkwrap {
   padding-right:0.5em;
   padding-left:0.2em;
   padding-bottom:0px;
@@ -192,16 +233,20 @@ div#action-stations-widget > span.action-stations-shrinkwrap {
   vertical-align:middle;
 }
 
-div#action-stations-widget span.action-stations-shrinkwrap.action-stations-red {
+div#action-stations-widget a.action-stations-shrinkwrap.action-stations-dradis {
+  color:MediumSpringGreen;
+}
+div#action-stations-widget a.action-stations-shrinkwrap.action-stations-orange,
+div#action-stations-widget a.action-stations-shrinkwrap.action-stations-red {
   color:yellow;
 }
-div#action-stations-widget span.action-stations-shrinkwrap.action-stations-pink {
+div#action-stations-widget a.action-stations-shrinkwrap.action-stations-pink {
   color:red;
 }
-div#action-stations-widget span.action-stations-shrinkwrap.action-stations-snowflake {
+div#action-stations-widget a.action-stations-shrinkwrap.action-stations-snowflake {
   color:blue;
 }
-div#action-stations-widget span.action-stations-shrinkwrap.action-stations-murica {
+div#action-stations-widget a.action-stations-shrinkwrap.action-stations-murica {
   color:DarkBlue;
 }
 
@@ -222,7 +267,7 @@ div.action-stations-expanded-head > h2 {
   font-family:arial,helvetica,sans-serif;
   padding-bottom:0.5em;
 }
-div.action-stations-expanded-head > span {
+div.action-stations-expanded-head > a {
   display:table-cell;
   font-family:arial,helvetica,sans-serif;
   text-align:right;
@@ -231,24 +276,28 @@ div.action-stations-expanded-head > span {
   cursor:pointer;
 }
 
+div.action-stations-expanded-head > h2.action-stations-dradis,
+div.action-stations-expanded-head > a.action-stations-dradis {
+  border-bottom:2px dotted DodgerBlue;
+}
 div.action-stations-expanded-head > h2.action-stations-orange,
-div.action-stations-expanded-head > span.action-stations-orange {
+div.action-stations-expanded-head > a.action-stations-orange {
   border-bottom:2px dotted gray;
 }
 div.action-stations-expanded-head > h2.action-stations-pink,
-div.action-stations-expanded-head > span.action-stations-pink {
+div.action-stations-expanded-head > a.action-stations-pink {
   border-bottom:2px dotted red;
 }
 div.action-stations-expanded-head > h2.action-stations-red,
-div.action-stations-expanded-head > span.action-stations-red {
+div.action-stations-expanded-head > a.action-stations-red {
   border-bottom:2px dotted yellow;
 }
 div.action-stations-expanded-head > h2.action-stations-snowflake,
-div.action-stations-expanded-head > span.action-stations-snowflake {
+div.action-stations-expanded-head > a.action-stations-snowflake {
   border-bottom:2px dotted DarkBlue;
 }
 div.action-stations-expanded-head > h2.action-stations-murica,
-div.action-stations-expanded-head > span.action-stations-murica {
+div.action-stations-expanded-head > a.action-stations-murica {
   border-bottom:2px dotted blue;
 }
 
@@ -264,8 +313,8 @@ div#action-stations-widget.action-stations-shrunk {
   height:1em;
   line-height:1em;
 }
-div#action-stations-widget.action-stations-shrunk > span.action-stations-shrinkwrap,
-div#action-stations-widget.action-stations-shrunk > span.action-stations-shrinkwrap > img {
+div#action-stations-widget.action-stations-shrunk > a.action-stations-shrinkwrap,
+div#action-stations-widget.action-stations-shrunk > a.action-stations-shrinkwrap > img {
   padding:0px !important;
   margin:0px !important;
   vertical-align:middle !important;
@@ -275,8 +324,7 @@ div#action-stations-widget.action-stations-shrunk > span.action-stations-shrinkw
   height:1em;
 }
 
-div#action-stations-widget a.action-stations-settings-button,
-div#action-stations-widget span.action-stations-shrinkwrap-from-expanded {
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded {
   padding-right:0.5em;
   padding-left:0.2em;
   padding-top:0px;
@@ -286,25 +334,37 @@ div#action-stations-widget span.action-stations-shrinkwrap-from-expanded {
   display:inline;
   cursor:pointer;
 }
-div#action-stations-widget span.action-stations-retract {
+div#action-stations-widget a.action-stations-retract {
   font-size:x-large;
-  padding-bottom:0px;
   vertical-align:top;
+  height:100%;
+  padding-top:0px;
+  padding-bottom:0px;
+  width:auto;
 }
 
-div#action-stations-widget a.action-stations-settings-button {
-  display:inline-block;
+div#action-stations-widget > div.action-stations-expanded h2 > a.action-stations-settings-button {
+  font-size:x-large;
+  font-weight:bold;
+  padding-top:0px;
+  padding-bottom:0px;
+  height:100%;
+  width:auto;
   float:right;
 }
-div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-stations-red {
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-orange,
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-red {
   color:yellow;
 }
-div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-stations-pink {
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-dradis {
+  color:MediumSpringGreen;
+}
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-pink {
   color:red;
 }
-div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-stations-snowflake {
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-snowflake {
   color:blue;
 }
-div#action-stations-widget span.action-stations-shrinkwrap-from-expanded.action-stations-murica {
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-murica {
   color:DarkBlue;
 }

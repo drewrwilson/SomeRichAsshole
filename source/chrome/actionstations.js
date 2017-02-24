@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  var actionStationsVersion = chrome.runtime.getManifest().version;
+  $("body#actionstations-options-page h1.header span.version").html(actionStationsVersion);
 
   chrome.storage.onChanged.addListener(function(changes, namespace) {
     for (key in changes) {
@@ -14,7 +16,6 @@ $(document).ready(function() {
 
   var global_disabled = false;
   function disabledHandler(disabled){
-console.log("disabled handler called with "+disabled);
     if(disabled){
       $("body#actionstations-options-page input.actionstations-disable").prop("checked", true);
       $("div#action-stations-widget").hide();
@@ -29,43 +30,40 @@ console.log("disabled handler called with "+disabled);
   function shrinkHandler(shrunk){
     if(shrunk == true){
       $("div#action-stations-widget > div.tcycle").hide();
-      $("div#action-stations-widget > span.action-stations-expand").hide();
-      $("div#action-stations-widget span.action-stations-shrinkwrap").show();
+      $("div#action-stations-widget > a.action-stations-expand").hide();
+      $("div#action-stations-widget a.action-stations-shrinkwrap").show();
       $("div#action-stations-widget > div.action-stations-expanded").hide();
       $("div#action-stations-widget").addClass("action-stations-shrunk");
       $("div#action-stations-widget").addClass("action-stations-shrinkwrap-from-expanded");
     } else {
       $("div#action-stations-widget > div.tcycle").fadeIn(400);
-      $("div#action-stations-widget > span.action-stations-expand").fadeIn(400);
+      $("div#action-stations-widget > a.action-stations-expand").fadeIn(400);
       $("div#action-stations-widget").removeClass("action-stations-shrunk");
       $("div#action-stations-widget").removeClass("action-stations-shrinkwrap-from-expanded");
     }
   }
 
   function cacheHandler(cache, hide_url = null, unhide_url = false){
-console.log("-- cacheHandler called");
-    var hidden_urls = [];
 
-    if(cache){
-      if(cache['hide_urls']){
-        hidden_urls = JSON.parse(cache['hide_urls']);
-      }
-      if(hide_url){
-        if(!unhide_url){
-          hidden_urls.push(hide_url);
-        } else {
-          var idx = hidden_urls.indexOf(hide_url);
-          if (idx > -1) {
-            hidden_urls.splice(idx);
-          }
+    var hidden_urls = [];
+    if(cache && cache['hide_urls']){
+      hidden_urls = JSON.parse(cache['hide_urls']);
+    }
+    if(hide_url){
+      if(!unhide_url){
+        hidden_urls.push(hide_url);
+      } else {
+        var idx = hidden_urls.indexOf(hide_url);
+        if (idx > -1) {
+          hidden_urls.splice(idx);
         }
-        hidden_urls = $.uniqueSort(hidden_urls);
       }
     }
+    if(cache){
+      cache['hide_urls'] = JSON.stringify($.uniqueSort(hidden_urls));
+    }
 
-//    if(cache && ((new Date()).getTime() - cache['cache_age']) < 3600000 && cache['actions']){
-    if(cache && ((new Date()).getTime() - cache['cache_age']) < 60000 && cache['actions']){
-console.log(cache);
+    if(cache && ((new Date()).getTime() - cache['cache_age']) < 3600000 && cache['actions']){
       var actions = JSON.parse(cache['actions']);
 
       if(actions && actions["Items"]){
@@ -104,13 +102,14 @@ console.log(cache);
     }
     // 9774= peace, 9770= star and crescent
     var themes = {
+      "dradis": "&ohm;",
       "orange": "&#9762;",
       "snowflake": "&#10052;",
       "murica": "&#x0272A;",
       "pink": "&#x02764;",
       "red": "&#9773;"
     };
-    console.log("themeHandler called: "+theme);
+
     $("body#actionstations-options-page input.actionstations-theme").each(function(){
       if($(this).val() == theme){
         $(this).prop("checked", true);
@@ -118,13 +117,13 @@ console.log(cache);
         $(this).prop("checked", false);
       }
     });
-    var themeselector = "div#action-stations-widget, div#action-stations-widget > div.tcycle a, div#action-stations-widget > div.action-stations-expanded a, div.action-stations-expanded-head > h2, div.action-stations-expanded-head > span, div#action-stations-widget span.action-stations-shrinkwrap, div.action-stations-expanded span.action-stations-shrinkwrap-from-expanded";
+    var themeselector = "div#action-stations-widget, div#action-stations-widget > div.tcycle a, div#action-stations-widget > div.action-stations-expanded a, div.action-stations-expanded-head > h2, div.action-stations-expanded-head > a, div#action-stations-widget a.action-stations-shrinkwrap, div.action-stations-expanded a.action-stations-shrinkwrap-from-expanded, div#action-stations-widget div.action-stations-widget-linkwrapper";
 //    for (t=0; t<themes.length; t++){
     Object.keys(themes).forEach(function (t) {
       if (t == theme){
         console.log("Setting ActionStations color scheme to action-stations-"+t);
         $(themeselector).addClass("action-stations-"+t);
-        $("div#action-stations-widget span.action-stations-shrinkwrap, div.action-stations-expanded span.action-stations-shrinkwrap-from-expanded").html(themes[t]);
+        $("div#action-stations-widget a.action-stations-shrinkwrap, div.action-stations-expanded a.action-stations-shrinkwrap-from-expanded").html(themes[t]);
       } else {
         $(themeselector).removeClass("action-stations-"+t);
       }
@@ -145,12 +144,12 @@ console.log(cache);
           shrinkHandler(items[key]);
         }
       } else if(key == "actionstations_actions_cache"){
-console.log("-- optionCallback(actionstations_actions_cache) called");
         if(setval != null || hide_url != null){
-console.log("-- there's a value to set here, saving");
+          if(setval == null){
+            setval = items[key];
+          }
           newcache = cacheHandler(setval, hide_url, removeval);
           setConfig(key, newcache);
-          cacheHandler(newcache);
         } else {
           cacheHandler(items[key]);
         }
@@ -175,7 +174,6 @@ console.log("-- there's a value to set here, saving");
   optionCallback("actionstations_actions_cache");
 
   function loadActions(expired = false){
-console.log("-- LoadActions called");
     $.ajax({
       url:"https://pu2jh2b68k.execute-api.us-east-1.amazonaws.com/prod/ActionStations",
       type: "GET",
@@ -213,16 +211,25 @@ console.log("-- LoadActions called");
   }
 
   function setWidgetText(jsonresp, hidden_urls = []){
-console.log("-- setWidgetText called");
-console.log(jsonresp["Items"]);
+    var expanded = false;
+    var standard = false;
+    if($("div#action-stations-widget > div.action-stations-expanded").is(":visible")){
+      expanded = true;
+    } else if($("div#action-stations-widget > div.tcycle").is(":visible")){
+      standard =  true;
+    }
+
     $("div#action-stations-widget > div.tcycle").html("");
+    $("div#action-stations-widget > div.tcycle").hide();
     $("div#action-stations-widget > div.tcycle").off();
     $("div.action-stations-expanded").html("");
+    $("div.action-stations-expanded").hide();
     var expanded_head = document.createElement('div');
     var expanded_head_text = document.createElement('h2');
-    var shrinkWrap = document.createElement('span');
+    var shrinkWrap = document.createElement('a');
     var settingsButton = document.createElement("a");
     $(shrinkWrap).addClass("action-stations-shrinkwrap-from-expanded");
+    shrinkWrap.title = "Shrink ActionStations";
     $(expanded_head_text).text(" #resist: Action Stations");
     $(expanded_head_text).prepend(shrinkWrap);
     $(expanded_head_text).append(settingsButton);
@@ -230,13 +237,14 @@ console.log(jsonresp["Items"]);
     $(expanded_head).append(expanded_head_text);
     $(settingsButton).html("&#9881;");
     $(settingsButton).addClass("action-stations-settings-button");
-    settingsButton.title = "Settings";
-    settingsButton.href = "chrome-extension://iakjefalhkkcomjjknimjicfhbnoadmc/options.html";
+    settingsButton.title = "ActionStations Settings";
+    settingsButton.href = chrome.extension.getURL("options.html");
     settingsButton.target = "_blank";
     $(expanded_head_text).prepend(settingsButton);
 
-    var retract = document.createElement('span');
-    $(retract).html("&#9858;");
+    var retract = document.createElement('a');
+    $(retract).html("&swarr;");
+    retract.title = "Hide Details";
     $(retract).addClass("action-stations-retract");
     $(expanded_head).append(retract);
     $("div.action-stations-expanded").append(expanded_head);
@@ -262,13 +270,15 @@ console.log(jsonresp["Items"]);
       fullLink.innerHTML = item["Description"];
       $(linkWrapper).append(fullLink);
 
-      var label = document.createElement('div');
-      $(label).addClass("action-stations-done");
+      var donebox = document.createElement('div');
+      var label = document.createElement('span');
+      $(label).html(" skip/done");
+      $(donebox).addClass("action-stations-done");
       var checkBox = document.createElement('input');
       $(checkBox).attr('type', "checkbox");
-      $(label).append(checkBox);
-      $(label).append(" skip/done");
-      $(linkWrapper).append(label);
+      $(donebox).append(checkBox);
+      $(donebox).append(label);
+      $(linkWrapper).append(donebox);
 
       $("div#action-stations-widget > div.action-stations-expanded").append(linkWrapper);
 
@@ -282,6 +292,8 @@ console.log(jsonresp["Items"]);
       }
       $("div#action-stations-widget > div.action-stations-expanded").append(timeLeft);
     }
+
+    // disable tcycle if we're only showing one slide
     if(slide_count > 1){
       $("div#action-stations-widget > div.tcycle").tcycle();
     } else {
@@ -289,18 +301,18 @@ console.log(jsonresp["Items"]);
     }
 
     $("div#action-stations-widget").fadeIn(800);
-    $("div#action-stations-widget span.action-stations-expand").click(function(){
+    $("div#action-stations-widget a.action-stations-expand").click(function(){
       $("div#action-stations-widget > div.tcycle").hide();
       $("div#action-stations-widget > div.action-stations-expanded").fadeIn(200);
-      $("div#action-stations-widget > span.action-stations-expand").hide();
-      $("div#action-stations-widget > span.action-stations-shrinkwrap").hide();
+      $("div#action-stations-widget > a.action-stations-expand").hide();
+      $("div#action-stations-widget > a.action-stations-shrinkwrap").hide();
 
     });
-    $("div#action-stations-widget span.action-stations-retract").click(function(){
-      $("div#action-stations-widget > div.action-stations-expanded").hide();
+    $("div#action-stations-widget a.action-stations-retract").click(function(){
       $("div#action-stations-widget > div.tcycle").fadeIn(200);
-      $("div#action-stations-widget > span.action-stations-expand").show();
-      $("div#action-stations-widget > span.action-stations-shrinkwrap").show();
+      $("div#action-stations-widget > div.action-stations-expanded").hide();
+      $("div#action-stations-widget > a.action-stations-expand").show();
+      $("div#action-stations-widget > a.action-stations-shrinkwrap").show();
 
     });
 
@@ -315,7 +327,7 @@ console.log(jsonresp["Items"]);
     $("div#action-stations-widget div.action-stations-widget-linkwrapper input").change(function(){
       handleDone(this);
     });
-    $("div#action-stations-widget div.action-stations-widget-linkwrapper div.action-stations-done").click(function(){
+    $("div#action-stations-widget div.action-stations-widget-linkwrapper div.action-stations-done span").click(function(){
       var checkBox = $(this).parent().find("input");
       if($(checkBox).prop("checked")){
         $(checkBox).prop("checked", false);
@@ -325,9 +337,27 @@ console.log(jsonresp["Items"]);
       handleDone(checkBox);
     });
 
-    optionCallback("actionstations_shrunk")
+    $("div#action-stations-widget > div.action-stations-expanded").append(timeLeft);
+
+    if(expanded){
+      $("div#action-stations-widget > div.tcycle").hide();
+      $("div#action-stations-widget > div.action-stations-expanded").show();
+      $("div#action-stations-widget > a.action-stations-expand").hide();
+      $("div#action-stations-widget > a.action-stations-shrinkwrap").hide();
+    } else if(standard){
+      $("div#action-stations-widget > div.tcycle").show();
+      $("div#action-stations-widget > div.action-stations-expanded").hide();
+      $("div#action-stations-widget > a.action-stations-expand").show();
+      $("div#action-stations-widget > a.action-stations-shrinkwrap").show();
+    } else {
+      optionCallback("actionstations_shrunk")
+    }
+
     optionCallback("actionstations_theme");
   }
+
+
+
 
   /*
   function getFormattedDate(date) {
@@ -349,7 +379,6 @@ console.log(jsonresp["Items"]);
 
   if(!global_disabled){
     $(document).ajaxComplete(function(event, xhr, settings) {
-console.log("-- ajaxComplete called");
       var newcache = {
         "cache_age": (new Date()).getTime(),
         "actions": xhr.responseText
@@ -360,8 +389,8 @@ console.log("-- ajaxComplete called");
 
     var widget = document.createElement('div');
     var slider = document.createElement('div');
-    var shrinkWrap = document.createElement('span');
-    var expand = document.createElement('span');
+    var shrinkWrap = document.createElement('a');
+    var expand = document.createElement('a');
     var expanded = document.createElement('div');
     $(widget).attr("id", "action-stations-widget");
     $(slider).attr("data-fx", "scroll");
@@ -370,8 +399,10 @@ console.log("-- ajaxComplete called");
     $(slider).addClass("tcycle");
     $(slider).hide();
     $(shrinkWrap).addClass("action-stations-shrinkwrap");
-    $(shrinkWrap).html("&#x0272A;");
-    $(expand).html("&#9858;");
+    shrinkWrap.title = "Shrink ActionStations";
+    $(shrinkWrap).html("&ohm;");
+    $(expand).html("&nearr;");
+    expand.title = "Show Details";
     $(expand).addClass("action-stations-expand");
     $(expand).hide();
     $(expanded).addClass("action-stations-expanded");
@@ -392,7 +423,5 @@ console.log("-- ajaxComplete called");
         optionCallback("actionstations_shrunk", true)
       }
     });
-
-
   }
 });
