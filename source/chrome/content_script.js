@@ -42,12 +42,15 @@ $(document).ready(function() {
     configLoaded = true;
   });
 
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
   function walk(node)
   {
-    // Wait until we've loaded the config
-    while(!configLoaded){
-      sleep(3);
+    // Try and wait until we've loaded the config
+    if(!configLoaded){
+      sleep(5000);
     }
   	var child, next;
   	
@@ -77,7 +80,7 @@ $(document).ready(function() {
   // some sobriquets do not need a "the" or other title to make sense
   var noprefix_phrases = ["Il Douche", "Lord Dampnut", "Our National Nightmare", "Cheez-It Ceaușescu", "Lumpy Joffrey Baratheon", "Tropicana Jong-il", "Easy D", "Agent Orange", "SCROTUS"];
   // Let's do Bannon too. Fuck that guy.
-  var bannon_phrases = ["a self-serious pseudo-intellectual oil spill", "a hate-filled turnip", "potato blight with a mouth", "sort of a Svengali figure but just a racist instead of racist caricature", "a malevolent golem made from the flesh of incompetent middle school history teachers", "more or less the actual President, which should terrify you", "a vile man who deserves no platform larger than a street corner", "the reincarnation of Joseph Goebbels", "a literal monster", "an inflamed liver with legs and bad ideas", "a guy who literally called journalism the 'opposition party'", "who does not belong on the National Security Council", "a douchey 19 year-old college libertarian who got the pox, lapsed into a 30 year coma, and just woke up with some ideas about government", "a guy who wrote a bad fanfic of Titus Andronicus set in space", "definitely not a lizard in an ill-fitting meat-suit", "not a good person", "a lesser demon inhabiting the bloated corpse of Rasputin", "whose policy experience comes from having played the body of a homeless man on The West Wing", "the last descendant of House Harkonnen", "a dumpster fire in the bin behind Dr. Mengele's lab", "a tupperware container of greasy hair preserved from the J-trap under a prison shower", "the wrinkled anus of a paranoid schizophrenic naked mole rat", "an evolutionary cul-de-sac, emphasis on the sac", "whose was conceived in a drunken tryst between an ogre and a plate of pork dumplings in the back seat of a Ford Pinto",  "the least capable of Nosferatu's spawn", "a malignant anal polyp", "a mouth-breathing mound of stomach grease and asbestos", "a maggoty sausage wrapped in the flag and carrying a cross", "a half-bright theocrat who fell out of the ugly tree", "a throbbing rectal tumor", "who was cloned from the ball sweat of Francisco Franco and grown in an avocado patch", "whose moral compass was manufactured by a particularly psychotic gremlin", "a toad riddled with skin tumors"];
+  var bannon_phrases = ["a self-serious pseudo-intellectual oil spill", "a hate-filled turnip", "potato blight with a mouth", "sort of a Svengali figure but just a racist instead of racist caricature", "a malevolent golem made from the flesh of incompetent middle school history teachers", "more or less the actual President, which should terrify you", "a vile man who deserves no platform larger than a street corner", "the reincarnation of Joseph Goebbels", "a literal monster", "an inflamed liver with legs and bad ideas", "a guy who literally called journalism the 'opposition party'", "who does not belong on the National Security Council", "a douchey 19 year-old college libertarian who got the pox, lapsed into a 30 year coma, and just woke up with some ideas about government", "a guy who wrote a bad fanfic of Titus Andronicus set in space", "definitely not a lizard in an ill-fitting meat-suit", "not a good person", "a lesser demon inhabiting the bloated corpse of Rasputin", "whose policy experience comes from having played the body of a homeless man on The West Wing", "the last descendant of House Harkonnen", "a dumpster fire in the bin behind Dr. Mengele's lab", "a tupperware container of greasy hair preserved from the J-trap under a prison shower", "the wrinkled anus of a paranoid schizophrenic naked mole rat", "an evolutionary cul-de-sac, emphasis on the sac", "whose was conceived in a drunken tryst between an ogre and a plate of pork dumplings in the back seat of a Ford Pinto",  "the least capable of Nosferatu's spawn", "a malignant anal polyp", "a mouth-breathing mound of stomach grease and asbestos", "a maggoty sausage wrapped in the flag and carrying a cross", "a half-bright theocrat who fell out of the ugly tree", "a throbbing rectal tumor", "who was cloned from the ball sweat of Francisco Franco and grown in an avocado patch", "whose moral compass was manufactured by a particularly psychotic gremlin", "a toad riddled with skin tumors", "the poster child for hyper-paranoid manatees with chronic gout"];
   var phrase = "";
 
   function newText(tag, text, style) {
