@@ -117,7 +117,7 @@ $(document).ready(function() {
         $(this).prop("checked", false);
       }
     });
-    var themeselector = "div#action-stations-widget, div#action-stations-widget > div.tcycle a, div#action-stations-widget > div.action-stations-expanded a, div.action-stations-expanded-head > h2, div.action-stations-expanded-head > a, div#action-stations-widget a.action-stations-shrinkwrap, div.action-stations-expanded a.action-stations-shrinkwrap-from-expanded, div#action-stations-widget div.action-stations-widget-linkwrapper";
+    var themeselector = "div#action-stations-widget, div#action-stations-widget > div.tcycle a, div#action-stations-widget > div.action-stations-expanded a, div#action-stations-widget div.action-stations-expanded-head > h2, div.action-stations-expanded-head > a, div#action-stations-widget a.action-stations-shrinkwrap, div.action-stations-expanded a.action-stations-shrinkwrap-from-expanded, div#action-stations-widget div.action-stations-widget-linkwrapper, div#action-stations-widget > a.action-stations-expand";
 //    for (t=0; t<themes.length; t++){
     Object.keys(themes).forEach(function (t) {
       if (t == theme){

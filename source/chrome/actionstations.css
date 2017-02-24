@@ -278,26 +278,32 @@ div.action-stations-expanded-head > a {
 
 div.action-stations-expanded-head > h2.action-stations-dradis,
 div.action-stations-expanded-head > a.action-stations-dradis {
+  color:MediumSpringGreen;
   border-bottom:2px dotted DodgerBlue;
 }
 div.action-stations-expanded-head > h2.action-stations-orange,
 div.action-stations-expanded-head > a.action-stations-orange {
+  color:yellow;
   border-bottom:2px dotted gray;
 }
 div.action-stations-expanded-head > h2.action-stations-pink,
 div.action-stations-expanded-head > a.action-stations-pink {
+  color:red;
   border-bottom:2px dotted red;
 }
 div.action-stations-expanded-head > h2.action-stations-red,
 div.action-stations-expanded-head > a.action-stations-red {
+  color:yellow;
   border-bottom:2px dotted yellow;
 }
 div.action-stations-expanded-head > h2.action-stations-snowflake,
 div.action-stations-expanded-head > a.action-stations-snowflake {
+  color:blue;
   border-bottom:2px dotted DarkBlue;
 }
 div.action-stations-expanded-head > h2.action-stations-murica,
 div.action-stations-expanded-head > a.action-stations-murica {
+  color:DarkBlue;
   border-bottom:2px dotted blue;
 }
 
@@ -352,19 +358,25 @@ div#action-stations-widget > div.action-stations-expanded h2 > a.action-stations
   width:auto;
   float:right;
 }
+div#action-stations-widget > a.action-stations-expand.action-stations-orange,
+div#action-stations-widget > a.action-stations-expand.action-stations-red,
 div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-orange,
 div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-red {
   color:yellow;
 }
+div#action-stations-widget > a.action-stations-expand.action-stations-dradis,
 div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-dradis {
   color:MediumSpringGreen;
 }
+div#action-stations-widget > a.action-stations-expand.action-stations-pink,
 div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-pink {
   color:red;
 }
+div#action-stations-widget > a.action-stations-expand.action-stations-snowflake,
 div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-snowflake {
   color:blue;
 }
+div#action-stations-widget > a.action-stations-expand.action-stations-murica,
 div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-murica {
   color:DarkBlue;
 }
