@@ -29,7 +29,6 @@ $(document).ready(function() {
       }
       if(key == "trumpmode"){
         $("#actionstations-options-page input."+key).each(function(){
-console.log("poking input#"+key+" which has value "+$(this).val());
           if($(this).val() == configValues[key]){
             $(this).prop("checked", true);
           } else {
