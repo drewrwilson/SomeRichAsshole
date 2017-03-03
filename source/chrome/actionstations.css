@@ -7,6 +7,7 @@ div#action-stations-widget-box {
   height:100%;
   border:0px;
   background:transparent;
+  z-index:9998;
   pointer-events: none
 }
 div#action-stations-widget {
@@ -14,7 +15,7 @@ div#action-stations-widget {
   pointer-events:auto;
   text-align:left;
   line-height:1em;
-  z-index:1000;
+  z-index:9999;
   border-radius:0.7em;
   white-space:nowrap;
   font-family:arial,helvetica,sans-serif;
@@ -23,10 +24,38 @@ div#action-stations-widget {
   padding-left:1em;
   padding-right:1em;
 }
+div#action-stations-widget > a,
+div#action-stations-widget > div,
+div#action-stations-widget > h2 {
+  z-index:auto;
+}
+
 body#actionstations-options-page {
   font-size:large;
   text-align:left;
 }
+body#actionstations-options-page div#actionstations-config {
+  float:left;
+  display:block;
+  width:49%;
+}
+body#actionstations-options-page div#actionstations-themes {
+  float:right;
+  display:block;
+  width:49%;
+}
+
+body#actionstations-options-page div#as-locales {
+  margin-left:1em;
+  background-color:PaleGreen;
+  max-width:50%;
+  display:none;
+  margin-top:0.5em;
+  border:1px solid black;
+  border-radius:0.3em;
+  padding:0.3em;
+}
+
 body#actionstations-options-page label {
   padding:0.3em;
   margin-bottom:0.2em;
@@ -49,8 +78,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 }
 body#actionstations-options-page label.red,
 div#action-stations-widget.action-stations-red {
-  color:LightGoldenRodYellow ;
-  border:2px solid LightGoldenRodYellow ;
+  color:LightGoldenRodYellow;
+  border:2px solid LightGoldenRodYellow;
   background:red;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cc0000+0,cc0000+100;Red+Flat */
   background: #cc0000; /* Old browsers */
@@ -114,12 +143,15 @@ div#action-stations-widget.action-stations-orange {
 
 div#action-stations-widget > div.tcycle {
   display:table-cell;
-  padding-bottom:0.25em;
-  padding-top:0.25em;
 }
 div#action-stations-widget > div.tcycle a {
   font-size:small;
   display:block;
+}
+/* mimic tcycle's padding behavior when tcycle's not on */
+div#action-stations-widget > div.tcycle a.noslide {
+  padding-bottom:0.5em;
+  padding-top:0.5em;
 }
 
 div#action-stations-widget > div.tcycle a:hover {
@@ -143,7 +175,8 @@ div#action-stations-widget div.action-stations-widget-linkwrapper.action-station
   background-color:DarkOrange;
 }
 div#action-stations-widget > div.action-stations-expanded a.action-stations-orange,
-div#action-stations-widget > div.tcycle a.action-stations-orange {
+div#action-stations-widget > div.tcycle.action-stations-orange a,
+div#action-stations-widget > div.tcycle.action-stations-orange {
   color:white;
 }
 
@@ -151,7 +184,8 @@ div#action-stations-widget div.action-stations-widget-linkwrapper.action-station
   background-color:LightPink;
 }
 div#action-stations-widget > div.action-stations-expanded a.action-stations-pink,
-div#action-stations-widget > div.tcycle a.action-stations-pink {
+div#action-stations-widget > div.tcycle.action-stations-pink a,
+div#action-stations-widget > div.tcycle.action-stations-pink {
   color:black;
 }
 
@@ -159,7 +193,8 @@ div#action-stations-widget div.action-stations-widget-linkwrapper.action-station
   background-color:DarkBlue;
 }
 div#action-stations-widget > div.action-stations-expanded a.action-stations-dradis,
-div#action-stations-widget > div.tcycle a.action-stations-dradis {
+div#action-stations-widget > div.tcycle.action-stations-dradis a,
+div#action-stations-widget > div.tcycle.action-stations-dradis {
   color:MediumSpringGreen;
 }
 
@@ -168,7 +203,8 @@ div#action-stations-widget div.action-stations-widget-linkwrapper.action-station
   background-color:red;
 }
 div#action-stations-widget > div.action-stations-expanded a.action-stations-red,
-div#action-stations-widget > div.tcycle a.action-stations-red {
+div#action-stations-widget > div.tcycle.action-stations-red a,
+div#action-stations-widget > div.tcycle.action-stations-red {
   color:LightGoldenRodYellow;
 }
 
@@ -176,7 +212,8 @@ div#action-stations-widget div.action-stations-widget-linkwrapper.action-station
   background-color:AliceBlue;
 }
 div#action-stations-widget > div.action-stations-expanded a.action-stations-snowflake,
-div#action-stations-widget > div.tcycle a.action-stations-snowflake {
+div#action-stations-widget > div.tcycle.action-stations-snowflake a,
+div#action-stations-widget > div.tcycle.action-stations-snowflake {
   color:DarkBlue;
 }
 
@@ -184,7 +221,8 @@ div#action-stations-widget div.action-stations-widget-linkwrapper.action-station
   background-color:white;
 }
 div#action-stations-widget > div.action-stations-expanded a.action-stations-murica,
-div#action-stations-widget > div.tcycle a.action-stations-murica {
+div#action-stations-widget > div.tcycle.action-stations-murica a,
+div#action-stations-widget > div.tcycle.action-stations-murica {
   color:DarkBlue;
 }
 
@@ -262,6 +300,7 @@ div#action-stations-widget a.action-stations-shrinkwrap.action-stations-murica {
 
 div#action-stations-widget a {
   padding-top:0.5em;
+  padding-bottom:0.5em;
   font-family:arial,helvetica,sans-serif;
   font-weight:normal;
   text-decoration:none;
@@ -389,4 +428,95 @@ div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-sta
 div#action-stations-widget > a.action-stations-expand.action-stations-murica,
 div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-murica {
   color:DarkBlue;
+}
+div#action-stations-widget > div.action-stations-handle {
+  display:table-cell;
+  font-size:large;
+  font-weight:bold;
+  opacity:0.8;
+  height:100%;
+  vertical-align:middle;
+  padding-left:0.2em;
+  padding-right:0.2em;
+}
+
+div.action-stations-shrink-hint {
+  color:black;
+  background-color:LightGoldenRodYellow;
+  border:1px solid black;
+  position:absolute;
+  height:5em;
+  z-index:9999;
+  top:-5.5em;
+  left:-0.5em;
+  display:inline;
+  max-width:20em;
+  font-size:x-small;
+  text-align:center;
+  white-space:normal;
+}
+div.action-stations-shrink-hint:after, div.action-stations-shrink-hint:before {
+  top: 100%;
+  left: 3em;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+}
+
+div.action-stations-shrink-hint:after {
+  border-color: rgba(250, 250, 210, 0);
+  border-top-color: LightGoldenRodYellow;
+  border-width: 8px;
+  margin-left: -8px;
+}
+div.action-stations-shrink-hint:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-top-color: #000000;
+  border-width: 9px;
+  margin-left: -9px;
+}
+div.action-stations-shrink-hint button.action-stations-shrink-hint-close {
+  padding:0.2em;
+  margin-top:0.3em;
+  margin-bottom:0.2em;
+  color:LightGoldenRodYellow;
+  margin-left:auto;
+  margin-right:auto;
+  clear:both;
+  background-color:DarkBlue;
+  position:relative;
+  border:0px;
+  border-radius:0.2em;
+}
+body#actionstations-options-page button#as-guess-locale {
+  display:block;
+  font-size:large;
+  margin:1em;
+}
+body#actionstations-options-page input#as-enter-locale {
+  display:block;
+  margin:1em;
+}
+body#actionstations-options-page div.as-locale-saved {
+  display:inline-block;
+  padding-top:0px;
+  padding-left:0.2em;
+  padding-right:0.2em;
+  padding-bottom:0.2em;
+  border-radius:0.2em;
+  background-color:white;
+  position:relative;
+  margin-right:0.2em;
+  border:1px solid black;
+}
+body#actionstations-options-page span.as-locale-saved-delete {
+  padding-top:0px;
+  font-size:small;
+  vertical-align:super;
+  font-weight:bold;
+  cursor:pointer;
+  position:relative;
+  color:Crimson;
 }

@@ -5,29 +5,36 @@
 	<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="jquery-ui/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="jquery.tcycle.js"></script>
+	<script type="text/javascript" src="postalCode2Name.js"></script>
+	<script type="text/javascript" src="zip2district.js"></script>
 	<script type="text/javascript" src="actionstations.js"></script>
-	<script type="text/javascript" src="content_script.js"></script>
 </head>
 <body id="actionstations-options-page">
 <h1 class="header">Some Rich Asshole Enhanced, version <span class="version"></span></h1>
 <p>
   Foul-mouthed juvenilia to help keep you sane during a foul regime. Replaces mentions of he-who-must-not-be-named, plus some of his horrid family and advisors, with more appropriate sobriquiets.
 </p>
-<div style="float:left;width:48%;">
-  <!--h2>Asshole Modes</h2>
-  <input type="radio" name="trumpmode" class="trumpmode" id="subname" value="subname"><label for="subname" class="subname">Swap out his name wherever it appears</label><br />
-  <input type="radio" name="trumpmode" class="trumpmode" id="subprefix" value="subprefix"><label for="subprefix" class="subprefix">Swap out his title, or add one of our own</label><br /-->
-
-  <h2>Other People</h2>
-  <input type="checkbox" name="skipbannon" class="skipbannon" id="skipbannon" value="skipbannon"><label for="skipbannon" class="skipbannon">Skip his grotesque Chief Strategist</label><br />
-  <input type="checkbox" name="skipwives" class="skipwives" id="skipwives" value="skipwives"><label for="skipwives" class="skipwives">Skip his wives</label><br />
-  <input type="checkbox" name="skipkids" class="skipkids" id="skipkids" value="skipkids"><label for="skipkids" class="skipkids">Skip Ivanka, Eric, Don Jr, and Tiffany</label><br />
+<div>
+<h2>ActionStations</h2>
+Optional feature. Stay in the loop and fight 'em 'til we can't. Keep on #resisting.
 </div>
 
-<div style="float:right;width:48%;">
-<h2>ActionStations</h2>
-BETA - You've been shanghaied into helping test ActionStations. This optional widget will help you stay in the loop and fight the good fight. Keep on #resisting.
-  <div>
+  <div id="actionstations-config">
+    <h3>State and Local Actions</h3>
+    <label for="as-locale">OPTIONAL: Using your location, and we can show events in your area, in addition to the nationwide stuff.</label>
+    <div id="as-locales">
+    </div>
+    <button id="as-guess-locale">Find my location automatically</button>
+
+    <input type="text" id="as-enter-locale" placeholder="Manually enter a zip code (e.g. 03031) or House district (e.g. OK-4)" name="as-locale" id="as-locale" size=61>
+
+    <h3>Disable</h3>
+    <input type="checkbox" name="as-disable" class="actionstations-disable" value="as-disable" id="as-disable">
+    <label for="as-disable">Hide the ActionStations widget</label>
+
+  </div>
+
+  <div id="actionstations-themes">
     <h3>Color Scheme</h3>
     <input type="radio" name="as-theme" class="actionstations-theme" id="dradis" value="dradis"><label for="dradis" class="dradis">&ohm; DRADIS</label><br />
     <input type="radio" name="as-theme" class="actionstations-theme" id="orange" value="orange"><label for="orange" class="orange">&#9762; Orange Nightmare</label><br />
@@ -36,12 +43,6 @@ BETA - You've been shanghaied into helping test ActionStations. This optional wi
     <input type="radio" name="as-theme" class="actionstations-theme" id="pink" value="pink"><label for="pink" class="pink">&#x02764; Think Pink</label><br />
     <input type="radio" name="as-theme" class="actionstations-theme" id="red" value="red"><label for="red" class="red">&#9773; Товарищ</label><br />
   </div>
-  <br />
-  <div>
-    <h3>Disable ActionStations</h3>
-    <input type="checkbox" name="as-disable" class="actionstations-disable" value="as-disable" id="as-disable">
-    <label for="as-disable">Disable the ActionStations widget</label>
-  </div>
-</div>
+
 </body>
 </html>
