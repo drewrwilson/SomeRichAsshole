@@ -88,10 +88,10 @@ $(document).ready(function() {
       $("div#action-stations-widget").addClass("action-stations-shrinkwrap-from-expanded");
       $("div#action-stations-widget.action-stations-shrunk").hover(function(){
         clearTimeout(hoverTimeout);
-        $("div#action-stations-widget > div.action-stations-handle").show();
+        $("div#action-stations-widget > div.action-stations-handle").fadeIn(200);
       }, function(){
         hoverTimeout = setTimeout(function(){
-          $("div#action-stations-widget > div.action-stations-handle").hide();
+          $("div#action-stations-widget > div.action-stations-handle").fadeOut(200);
         }, 1000);
       });
 //      $("div#action-stations-widget.action-stations-shrunk").mouseout(function(){
@@ -674,7 +674,9 @@ $(document).ready(function() {
       zIndex: 9999,
       containment: "div#action-stations-widget-box",
       stop: function(e, ui){
-//        $("div#action-stations-widget > div.action-stations-handle").hide();
+        hoverTimeout = setTimeout(function(){
+          $("div#action-stations-widget > div.action-stations-handle").fadeOut(200);
+        }, 1000);
       }
     });
 

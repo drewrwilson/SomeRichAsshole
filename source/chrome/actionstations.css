@@ -438,6 +438,7 @@ div#action-stations-widget > div.action-stations-handle {
   vertical-align:middle;
   padding-left:0.2em;
   padding-right:0.2em;
+  cursor:move;
 }
 
 div.action-stations-shrink-hint {
