@@ -87,22 +87,21 @@ $(document).ready(function() {
       $("div#action-stations-widget").addClass("action-stations-shrunk");
       $("div#action-stations-widget").addClass("action-stations-shrinkwrap-from-expanded");
       $("div#action-stations-widget.action-stations-shrunk").hover(function(){
-        clearTimeout(hoverTimeout);
-        $("div#action-stations-widget > div.action-stations-handle").fadeIn(200);
+        if($(this).hasClass("action-stations-shrunk")){
+          clearTimeout(hoverTimeout);
+          $("div#action-stations-widget > div.action-stations-handle").fadeIn(200);
+        }
       }, function(){
         hoverTimeout = setTimeout(function(){
           $("div#action-stations-widget > div.action-stations-handle").fadeOut(200);
         }, 1000);
       });
-//      $("div#action-stations-widget.action-stations-shrunk").mouseout(function(){
-//        $("div#action-stations-widget > div.action-stations-handle").hide();
-//      });
     } else {
       $("div#action-stations-widget > div.tcycle").fadeIn(400);
       $("div#action-stations-widget > a.action-stations-expand").fadeIn(400);
       $("div#action-stations-widget").removeClass("action-stations-shrunk");
       $("div#action-stations-widget").removeClass("action-stations-shrinkwrap-from-expanded");
-      $("div#action-stations-widget").find("div.action-stations-handle").remove();
+      $("div#action-stations-widget > div.action-stations-handle").hide();
     }
   }
 
