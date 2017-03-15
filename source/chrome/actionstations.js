@@ -1,7 +1,6 @@
 $(document).ready(function() {
   var actionStationsEndpoint = "https://pu2jh2b68k.execute-api.us-east-1.amazonaws.com/prod/ActionStations";
   var geoCodeEndpoint = "https://maps.googleapis.com/maps/api/geocode/json";
-//  var googleAPIKey = "AIzaSyAiO5jOsDH5mstrm1-sM3zL6HGEHGPAZ3U";
 //  var radiusEndpoint = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
   var actionStationsVersion = chrome.runtime.getManifest().version;
   var locationPlaceholderOrig = "";
@@ -20,13 +19,14 @@ $(document).ready(function() {
   };
   $("body#actionstations-options-page h1.header span.version").html(actionStationsVersion);
 
+
   /*
    * Dev only: log changes to local storage variables.
    */
   chrome.storage.onChanged.addListener(function(changes, namespace) {
     for (key in changes) {
       var storageChange = changes[key];
-      console.log('Storage key "%s" in namespace "%s" changed. ' +
+//      console.log('Storage key "%s" in namespace "%s" changed. ' +
                   'Old value was "%s", new value is "%s".',
                   key,
                   namespace,
@@ -63,13 +63,22 @@ $(document).ready(function() {
   }
 
   function disabledHandler(disabled){
+    setConfig("actionstations_disabled", disabled);
     if(disabled){
       $("body#actionstations-options-page input.actionstations-disable").prop("checked", true);
+      $("body#actionstations-options-page input.actionstations-enable").prop("checked", false);
+      $("body#actionstations-options-page div#actionstations-config-features").hide();
+      $("body#actionstations-options-page div#actionstations-themes").hide();
       $("div#action-stations-widget").hide();
       global_disabled = true;
     } else {
       $("body#actionstations-options-page input.actionstations-disable").prop("checked", false);
+      $("body#actionstations-options-page input.actionstations-enable").prop("checked", true);
+      $("body#actionstations-options-page div#actionstations-config-features").show();
+      $("body#actionstations-options-page div#actionstations-themes").show();
       $("div#action-stations-widget").show();
+      optionCallback("actionstations_shrunk");
+      optionCallback("actionstations_cache");
       global_disabled = false;
     }
   }
@@ -130,15 +139,15 @@ $(document).ready(function() {
       if(actions && actions["Items"]){
         setWidgetText(actions, hidden_urls);
       } else {
-        console.log("Cache corrupted or too old, loading new actions");
+        console.log("ActionStations ache corrupted or too old, loading new actions");
         loadActions(); // this will call us again, with fresh data
       }
     } else {
       if(!cache){
-        console.log("No cache, loading new actions");
+        console.log("No ActionStations cache, loading new actions");
       } else {
         var cache_age = ((new Date()).getTime() - cache['cache_age'])/3600000;
-        console.log("Expired cache ("+cache_age+" hours), loading new actions");
+        console.log("Expired ActionStations cache ("+cache_age+" hours), loading new actions");
       }
       loadActions(); // this will call us again, with fresh data
     }
@@ -154,7 +163,6 @@ $(document).ready(function() {
    * Handle requests for, and saves, locale preferences.
    */
   function localeHandler(values, add = null, removeval = false){
-    console.log("localeHandler called");
     district = null;
     if(!values){
       values = [];
@@ -259,7 +267,6 @@ $(document).ready(function() {
 //    for (t=0; t<themes.length; t++){
     Object.keys(themes).forEach(function (t) {
       if (t == theme){
-        console.log("Setting ActionStations color scheme to action-stations-"+t);
         $(themeselector).addClass("action-stations-"+t);
         $("div#action-stations-widget a.action-stations-shrinkwrap, div.action-stations-expanded a.action-stations-shrinkwrap-from-expanded").html(themes[t]);
       } else {
@@ -300,6 +307,9 @@ $(document).ready(function() {
         }
       } else if(key == "actionstations_locale"){
         localeHandler(items[key], setval, removeval);
+        // if we're shrunk or disabled, make sure we don't overwrite that state
+        optionCallback("actionstations_shrunk");
+        optionCallback("actionstations_disabled");
       } else if(key == "actionstations_hints_seen"){
         if(items[key]){
           return;
@@ -326,10 +336,18 @@ $(document).ready(function() {
         } else {
           cacheHandler(items[key]);
         }
+        // if we're shrunk or disabled, make sure we don't overwrite that state
+        optionCallback("actionstations_shrunk");
+        optionCallback("actionstations_disabled");
+      } else if(key == "actionstations_disabled_defaultonstartup"){
+        if(typeof(items[key]) === 'undefined'){
+          setConfig(key, true);
+          disabledHandler(true);
+        }
       } else if(key == "actionstations_disabled"){
         if(setval != null){
           disabledHandler(setval);
-        } else {
+        } else if(typeof(items[key]) !== 'undefined'){
           disabledHandler(items[key]);
         }
       } else if(key == "actionstations_theme"){
@@ -339,6 +357,9 @@ $(document).ready(function() {
         } else {
           themeHandler(items[key]);
         }
+        // if we're shrunk or disabled, make sure we don't overwrite that state
+        optionCallback("actionstations_shrunk");
+        optionCallback("actionstations_disabled");
       }
     });
   }
@@ -352,7 +373,6 @@ $(document).ready(function() {
       $("div#action-stations-widget > div.tcycle").show();
       $("div#action-stations-widget > div.tcycle").html("<a>Loading...</a>");
     }
-    console.log("sending request to "+actionStationsEndpoint);
 
     $.ajax({
       url: actionStationsEndpoint,
@@ -595,6 +615,9 @@ $(document).ready(function() {
   $("#actionstations-options-page input.actionstations-disable").change(function(){
     optionCallback("actionstations_disabled", $(this).prop("checked"));
   });
+  $("#actionstations-options-page input.actionstations-enable").change(function(){
+    optionCallback("actionstations_disabled", !$(this).prop("checked"));
+  });
   $("#actionstations-options-page input.actionstations-theme").change(function(){
     optionCallback("actionstations_theme", $(this).val());
   });
@@ -783,5 +806,6 @@ $(document).ready(function() {
   });
 
   optionCallback("actionstations_locale");
+  optionCallback("actionstations_disabled_defaultonstartup");
 
 });

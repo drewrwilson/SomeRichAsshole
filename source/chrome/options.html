@@ -15,22 +15,23 @@
   Foul-mouthed juvenilia to help keep you sane during a foul regime. Replaces mentions of he-who-must-not-be-named, plus some of his horrid family and advisors, with more appropriate sobriquiets.
 </p>
 <div>
-<h2>ActionStations</h2>
-Optional feature. Stay in the loop and fight 'em 'til we can't. Keep on #resisting.
-</div>
+  <h2>ActionStations</h2>
+  Optional #resistance plugin. Fight 'em 'til we can't.
+  </div>
 
   <div id="actionstations-config">
-    <h3>State and Local Actions</h3>
-    <label for="as-locale">OPTIONAL: Using your location, and we can show events in your area, in addition to the nationwide stuff.</label>
-    <div id="as-locales">
+    <input type="checkbox" name="as-enable" class="actionstations-enable" value="as-enable" id="as-enable">
+    <label for="as-enable">Enable ActionStations</label>
+
+    <div id="actionstations-config-features">
+      <h3>State and Local Actions</h3>
+      <label for="as-locale">OPTIONAL: Using your location, and we can show events in your area, in addition to the nationwide stuff.</label>
+      <div id="as-locales">
+      </div>
+      <button id="as-guess-locale">Find my location automatically</button>
+      <input type="text" id="as-enter-locale" placeholder="Manually enter a zip code (e.g. 03031) or House district (e.g. OK-4)" name="as-locale" id="as-locale" size=61>
     </div>
-    <button id="as-guess-locale">Find my location automatically</button>
-
-    <input type="text" id="as-enter-locale" placeholder="Manually enter a zip code (e.g. 03031) or House district (e.g. OK-4)" name="as-locale" id="as-locale" size=61>
-
-    <h3>Disable</h3>
-    <input type="checkbox" name="as-disable" class="actionstations-disable" value="as-disable" id="as-disable">
-    <label for="as-disable">Hide the ActionStations widget</label>
+  
 
   </div>
 
