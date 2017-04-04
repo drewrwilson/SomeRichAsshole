@@ -5,5 +5,6 @@
 <!DOCTYPE overlay SYSTEM "chrome://some-rich-asshole/locale/cv-pls.dtd">
 
 <overlay id="cv-pls-browser-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="text/javascript" src="chrome://some-rich-asshole/content/phrases.json" />
   <script type="text/javascript" src="chrome://some-rich-asshole/content/content_script.js" />
 </overlay>
