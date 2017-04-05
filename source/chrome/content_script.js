@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
   var createdPhrases = []
   var skip_domains = ["wtfisastevebannon.com"];
 
@@ -200,6 +201,7 @@ $(document).ready(function() {
     svengali(textNode);
   }
 
+
   if(skip_domains.indexOf(window.location.hostname) < 0){
     walk(document.body);
 
@@ -209,5 +211,4 @@ $(document).ready(function() {
       childList: true
     });
   }
-
 });
