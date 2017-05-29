@@ -22,8 +22,8 @@ DIRS = {
 content_script = File.read(ROOTDIR+"/content_script.js")
 DIRS.each_pair { |subdir, template|
   puts "*******************************"
-  puts "Installing "+ROOTDIR+"/"+subdir+"/phrases.json"
-  File.open(ROOTDIR+"/"+subdir+"/phrases.json", "w+") { |fd|
+  puts "Installing "+ROOTDIR+"/"+subdir+"/phrases.js"
+  File.open(ROOTDIR+"/"+subdir+"/phrases.js", "w+") { |fd|
     fd.puts "PHRASES = "+JSON.generate(phrases)+";\n"
   }
   as_src = "#{Etc.getpwuid(Process.uid).dir}/actionstations/#{subdir}"
