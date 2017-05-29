@@ -1,0 +1,87 @@
+<html>
+<head>
+	<title>Options for Action Stations</title>
+  <link rel="stylesheet" href="actionstations-browser.css">
+  <link rel="stylesheet" href="actionstations-options.css">
+  <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="jquery-ui/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="jquery.tcycle.js"></script>
+  <script type="text/javascript" src="actionstations-storage.js"></script>
+  <script type="text/javascript" src="actionstations-config.js"></script>
+  <script type="text/javascript" src="actionstations-lib.js"></script>
+  <script type="text/javascript" src="actionstations.js"></script>
+
+</head>
+<body id="actionstations-options-page">
+<h1 class="header">Some Rich Asshole Enhanced, version <span class="action-stations-version"></span></h1>
+<p>
+  Foul-mouthed juvenilia to help keep you sane during a foul regime. Replaces mentions of he-who-must-not-be-named, plus some of his horrid family and advisors, with more appropriate sobriquiets. We <a href="http://wtfisastevebannon.com" target="_blank">abuse Steve Bannon with especial relish</a>.
+</p>
+<hr>
+<p>
+Comes bundled with <a href="https://actionstations.network" target="_blank">Action Stations</a>, a political action feed for everyone. Includes volunteer opportunities, town halls, and upcoming elections. Configure below. Fight 'em 'til we can't.
+</p>
+  <div id="actionstations-config">
+    <h3>State and Local Actions</h3>
+    <div id="as-locales">
+    </div>
+    <button id="as-guess-locale">Find my location automatically</button>
+
+    <input type="text" id="as-enter-locale" placeholder="...or manually enter a zip code (e.g. 03031) or House district (e.g. OK-4)" name="as-locale" id="as-locale" size=50>
+
+    <h3>Overlay Widget</h3>
+    <p>
+      <input type="radio" name="as-shrunk" class="actionstations-widget-display actionstations-disable" value="as-disabled" id="as-disabled">
+      <label for="as-disabled"><strong>Disabled</strong></label>
+      <input type="radio" name="as-shrunk" class="actionstations-widget-display actionstations-shrunk" value="as-minimized" id="as-minimized">
+      <label for="as-minimized"><strong>Minimized</strong></label>
+      <input type="radio" name="as-shrunk" class="actionstations-widget-display actionstations-ticker" value="as-ticker" id="as-ticker">
+      <label for="as-ticker"><strong>Ticker</strong></label>
+    </p>
+
+
+  </div>
+
+  <div id="actionstations-appearance">
+    <div id="actionstations-themes">
+      <h3>Color Scheme</h3>
+      <div><input type="radio" name="as-theme" class="actionstations-theme" id="dradis" value="dradis"><label for="dradis" class="dradis">&ohm; DRADIS</label></div>
+      <div><input type="radio" name="as-theme" class="actionstations-theme" id="orange" value="orange"><label for="orange" class="orange">&#9762; Orange Nightmare</label></div>
+      <div><input type="radio" name="as-theme" class="actionstations-theme" id="snowflake" value="snowflake"><label for="snowflake" class="snowflake">&#10052; Snowflake</label></div>
+      <div><input type="radio" name="as-theme" class="actionstations-theme" id="murica" value="murica"><label for="murica" class="murica">&#x0272A; Captain America</label></div>
+      <div><input type="radio" name="as-theme" class="actionstations-theme" id="pink" value="pink"><label for="pink" class="pink">&#x02764; Think Pink</label></div>
+      <div><input type="radio" name="as-theme" class="actionstations-theme" id="red" value="red"><label for="red" class="red">&#9773; &#1058;&#1086;&#1074;&#1072;&#1088;&#1080;&#1097;</label></div>
+    </div>
+
+
+    <div id="widget-placement">
+      <h3>Widget Placement</h3>
+      <p>
+        Choose a fixed corner, or allow the widget to be dragged around the screen. If you choose draggable, it will start in the lower left corner by default.
+      </p>
+      <input type="radio" name="as-placement" class="actionstations-placement" id="as-widget-northwest" value="northwest">
+      <input type="radio" name="as-placement" class="actionstations-placement" id="as-widget-northeast" value="northeast">
+      <input type="radio" name="as-placement" class="actionstations-placement" id="as-widget-draggable" value="draggable">
+      <input type="radio" name="as-placement" class="actionstations-placement" id="as-widget-southwest" value="southwest">
+      <input type="radio" name="as-placement" class="actionstations-placement" id="as-widget-southeast" value="southeast">
+    <div id="widget-placement-fakemonitor">
+      <div>
+        <div class="as-widget-northwest"><label for="as-widget-northwest">Top Left</label></div>
+        <div></div>
+        <div class="as-widget-northeast"><label for="as-widget-northeast">Top Right</label></div>
+      </div>
+      <div>
+        <div></div>
+        <div class="as-widget-draggable"><label for="as-widget-draggable">Draggable</label></div>
+        <div></div>
+      </div>
+      <div>
+        <div class="as-widget-southwest"><label for="as-widget-southwest">Bottom Left</label></div>
+        <div></div>
+        <div class="as-widget-southeast"><label for="as-widget-southeast">Bottom Right</label></div>
+      </div>
+      </div>
+    </div>
+
+</body>
+</html>

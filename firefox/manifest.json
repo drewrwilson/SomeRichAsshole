@@ -1,0 +1,39 @@
+{
+	"manifest_version": 2,
+	"name": "Some Rich Asshole Enhanced",
+	"version": "3.1.0",
+	"description": "Replaces He-Who-Must-Not-Be-Named's name, and those of some related individuals, with more colorful descriptors.",
+  "permissions": [
+    "storage"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "web_accessible_resources":[
+    "twitter.png",
+    "twitter-reverse.png",
+    "fb.png",
+    "fb-reverse.png"
+  ],
+  "options_ui":{
+    "page":"options.html"
+  },
+	"content_scripts":
+	[
+		{
+			"matches": ["*://*/*"],
+      "css": ["actionstations-browser.css"],
+      "js": ["jquery-3.1.1.min.js", "jquery-ui/jquery-ui.min.js", "jquery.tcycle.js", "actionstations-config.js", "actionstations-storage.js", "actionstations-lib.js", "phrases.json", "content_script.js", "actionstations.js"],
+			"run_at": "document_end"
+		}
+	],
+  "browser_action": {
+    "default_icon": "icon128.png",
+    "default_title": "Action Stations",
+    "default_popup": "popup.html"
+  },
+	"icons": {
+    "128": "icon128.png"
+  }
+}

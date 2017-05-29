@@ -1,0 +1,666 @@
+/* latin-ext */
+@font-face {
+  font-family: 'Audiowide';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Audiowide'), local('Audiowide-Regular'), url(https://fonts.gstatic.com/s/audiowide/v4/7pSgz2MbVvTCvvm7vukSHxJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Audiowide';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Audiowide'), local('Audiowide-Regular'), url(https://fonts.gstatic.com/s/audiowide/v4/8XtYtNKEyyZh481XVWfVOltXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+div#action-stations-widget-box {
+  position:fixed;
+  bottom:0px;
+  left:0px;
+  width:100%;
+  height:100%;
+  border:0px;
+  background:transparent;
+  z-index:9998;
+  pointer-events:none;
+}
+div#action-stations-widget {
+  display:table;
+  pointer-events:auto;
+  text-align:left;
+  line-height:1.2em;
+  z-index:9999;
+  border-radius:0.7em;
+  white-space:nowrap;
+  font-family:arial,helvetica,sans-serif;
+  font-weight:normal;
+  font-size:small;
+  padding-left:1em;
+  padding-right:1em;
+  min-width:20%;
+}
+
+div#action-stations-widget.action-stations-affixed {
+  position:fixed;
+}
+div#action-stations-widget.action-stations-affixed.action-stations-northwest {
+  top:0.3em;
+  left:1em;
+}
+div#action-stations-widget.action-stations-affixed.action-stations-northeast {
+  top:0.3em;
+  right:1.2em;
+}
+div#action-stations-widget.action-stations-affixed.action-stations-southwest {
+  bottom:1em;
+  left:1em;
+}
+div#action-stations-widget.action-stations-affixed.action-stations-southeast {
+  bottom:1em;
+  right:1.2em;
+}
+div#action-stations-widget > a,
+div#action-stations-widget > div,
+div#action-stations-widget > h2 {
+  z-index:auto;
+}
+
+div#action-stations-widget.action-stations-dradis {
+  color:MediumSpringGreen;
+  border:2px solid DodgerBlue;
+  background:#222222;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,3b516d+100 */
+background: #000000; /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  #000000 0%, #3b516d 100%); /* FF3.6-15 */
+background: -webkit-radial-gradient(center, ellipse cover,  #000000 0%,#3b516d 100%); /* Chrome10-25,Safari5.1-6 */
+background: radial-gradient(ellipse at center,  #000000 0%,#3b516d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#3b516d',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+div#action-stations-widget.action-stations-red {
+  color:LightGoldenRodYellow;
+  border:2px solid LightGoldenRodYellow;
+  background:red;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cc0000+0,cc0000+100;Red+Flat */
+  background: #cc0000; /* Old browsers */
+  background: -moz-linear-gradient(top,  #cc0000 0%, #cc0000 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #cc0000 0%,#cc0000 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #cc0000 0%,#cc0000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#cc0000',GradientType=0 ); /* IE6-9 */
+}
+div#action-stations-widget.action-stations-pink {
+  color:black;
+  border:2px solid red;
+  background:LightPink;
+  background-color: #FFD1F3;
+  /* For WebKit (Safari, Chrome, etc) */
+  background: #FFD1F3 -webkit-gradient(linear, left top, left bottom, from(#FFD1D4), to(#FFD1F3)) no-repeat;
+  /* Mozilla,Firefox/Gecko */
+  background: #FFD1F3 -moz-linear-gradient(top, #FFD1D4, #FFD1F3) no-repeat;
+  /* IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFD1D4, endColorstr=#FFD1F3) no-repeat;
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFD1D4, endColorstr=#FFD1D4)" no-repeat;
+}
+div#action-stations-widget.action-stations-murica {
+  color:DarkBlue;
+  border:2px solid red;
+  background:white;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f1f1f1+27,e1e1e1+65,f6f6f6+100 */
+background: rgb(255,255,255); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(255,255,255,1) 0%, rgba(241,241,241,1) 27%, rgba(225,225,225,1) 65%, rgba(246,246,246,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(241,241,241,1) 27%,rgba(225,225,225,1) 65%,rgba(246,246,246,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(241,241,241,1) 27%,rgba(225,225,225,1) 65%,rgba(246,246,246,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+div#action-stations-widget.action-stations-snowflake {
+  color:DarkBlue;
+  border:2px solid LightBlue;
+  background:white;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#feffff+0,ddf1f9+35,d5e6ed+100 */
+  background: #feffff; /* Old browsers */
+  background: -moz-linear-gradient(top,  #feffff 0%, #ddf1f9 35%, #d5e6ed 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #feffff 0%,#ddf1f9 35%,#d5e6ed 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #feffff 0%,#ddf1f9 35%,#d5e6ed 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#d5e6ed',GradientType=0 ); /* IE6-9 */
+}
+div#action-stations-widget.action-stations-orange {
+  border:2px solid gray;
+  color:white;
+  background: #f2825b; /* Old browsers */
+  background: -moz-linear-gradient(top,  #f2825b 0%, #e55b2b 50%, #f07146 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #f2825b 0%,#e55b2b 50%,#f07146 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #f2825b 0%,#e55b2b 50%,#f07146 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2825b', endColorstr='#f07146',GradientType=0 ); /* IE6-9 */
+  -webkit-font-smoothing:auto;
+}
+
+
+div#action-stations-widget > div.tcycle {
+  display:table-cell;
+}
+div#action-stations-widget > div.tcycle a {
+  padding-top:0.5em;
+  padding-bottom:0.5em;
+  font-size:small;
+  display:block;
+}
+/* mimic tcycle's padding behavior when tcycle's not on */
+div#action-stations-widget > div.tcycle a.noslide {
+  padding-bottom:0.5em;
+  padding-top:0.5em;
+}
+
+div#action-stations-widget > div.tcycle a:hover {
+  text-decoration:underline;
+}
+div#action-stations-widget > div.action-stations-expanded {
+  width:100%;
+/*
+  height:100%;
+*/
+  max-height:100%;
+  display:block;
+  bottom:0px;
+  position:relative;
+  padding-bottom:1em;
+  padding-top:1em;
+  overflow-y:scroll;
+  overflow-x:hidden;
+}
+div#action-stations-widget div.action-stations-row {
+  display:block;
+}
+div#action-stations-widget div.action-stations-row > div.action-stations-expanded div.action-stations-widget-linkwrapper a,
+div#action-stations-widget > div.action-stations-expanded div.action-stations-widget-linkwrapper a {
+  font-size:medium;
+}
+
+div#action-stations-widget div.action-stations-row.action-stations-orange:hover {
+  background-color:DarkOrange;
+}
+div#action-stations-widget div.action-stations-row.action-stations-orange div.action-stations-widget-linkwrapper div.action-stations-done div.locale-note,
+div#action-stations-widget > div.action-stations-expanded a.action-stations-orange,
+div#action-stations-widget > div.tcycle.action-stations-orange a,
+div#action-stations-widget > div.tcycle.action-stations-orange {
+  color:white;
+}
+
+div#action-stations-widget div.action-stations-row.action-stations-pink:hover {
+  background-color:LightPink;
+}
+div#action-stations-widget div.action-stations-row.action-stations-pink div.action-stations-widget-linkwrapper div.action-stations-done div.locale-note,
+div#action-stations-widget > div.action-stations-expanded a.action-stations-pink,
+div#action-stations-widget > div.tcycle.action-stations-pink a,
+div#action-stations-widget > div.tcycle.action-stations-pink {
+  color:black;
+}
+
+div#action-stations-widget div.action-stations-row.action-stations-dradis:hover {
+  background-color:DarkBlue;
+}
+div#action-stations-widget > div.tcycle.action-stations-dradis {
+  color:MediumSpringGreen;
+}
+div#action-stations-widget div.action-stations-row.action-stations-dradis div.action-stations-widget-linkwrapper div.action-stations-done div.locale-note,
+div#action-stations-widget > div.action-stations-expanded a.action-stations-dradis,
+div#action-stations-widget > div.tcycle.action-stations-dradis a {
+  color:white;
+}
+
+
+div#action-stations-widget div.action-stations-row.action-stations-red:hover {
+  background-color:red;
+}
+div#action-stations-widget div.action-stations-row.action-stations-red div.action-stations-widget-linkwrapper div.action-stations-done div.locale-note,
+div#action-stations-widget > div.action-stations-expanded a.action-stations-red,
+div#action-stations-widget > div.tcycle.action-stations-red a,
+div#action-stations-widget > div.tcycle.action-stations-red {
+  color:LightGoldenRodYellow;
+}
+
+div#action-stations-widget div.action-stations-row.action-stations-snowflake:hover {
+  background-color:AliceBlue;
+}
+div#action-stations-widget div.action-stations-row.action-stations-snowflake div.action-stations-widget-linkwrapper div.action-stations-done div.locale-note,
+div#action-stations-widget > div.action-stations-expanded a.action-stations-snowflake,
+div#action-stations-widget > div.tcycle.action-stations-snowflake a,
+div#action-stations-widget > div.tcycle.action-stations-snowflake {
+  color:DarkBlue;
+}
+
+div#action-stations-widget div.action-stations-row.action-stations-murica:hover {
+  background-color:white;
+}
+div#action-stations-widget div.action-stations-row.action-stations-murica div.action-stations-widget-linkwrapper div.action-stations-done div.locale-note,
+div#action-stations-widget > div.action-stations-expanded a.action-stations-murica,
+div#action-stations-widget > div.tcycle.action-stations-murica a,
+div#action-stations-widget > div.tcycle.action-stations-murica {
+  color:DarkBlue;
+}
+
+div#action-stations-widget div.action-stations-row {
+  width:100%;
+  position:relative;
+  vertical-align:middle;
+  white-space:nowrap;
+  text-align:left;
+  display:block;
+}
+
+div#action-stations-widget div.action-stations-row div.action-stations-widget-linkwrapper a,
+div#action-stations-widget div.action-stations-widget-linkwrapper a {
+  display:inline-block;
+  font-family:arial,helvetica,sans-serif;
+  padding-right:1em;
+}
+div#action-stations-widget div.action-stations-row div.action-stations-widget-linkwrapper div.action-stations-done {
+  display:inline-block;
+  cursor:default;
+  font-family:arial,helvetica,sans-serif;
+  color:black;
+}
+div#action-stations-widget div.action-stations-row div.action-stations-widget-linkwrapper div.action-stations-done input,
+div#action-stations-widget div.action-stations-widget-linkwrapper div.action-stations-done input {
+  vertical-align:middle;
+}
+div#action-stations-widget div.action-stations-row div.action-stations-widget-linkwrapper div.action-stations-timeleft,
+div#action-stations-widget div.action-stations-row div.action-stations-timeleft {
+  display:block;
+  text-align:left;
+  font-family:arial,helvetica,sans-serif;
+  font-size:small;
+  width:98%;
+  padding-right:1em;
+}
+
+div#action-stations-widget > a.action-stations-expand {
+  padding-right:0.2em;
+  padding-left:0.5em;
+  padding-top:0px;
+  padding-bottom:0px;
+  height:100%;
+  width:auto;
+  margin:0px;
+  display:table-cell;
+  cursor:pointer;
+  font-size:large;
+  vertical-align:middle;
+  unicode-bidi:bidi-override;
+  -webkit-transform:rotateY(180deg);
+  -moz-transform:rotateY(180deg);
+  -o-transform:rotateY(180deg);
+  -ms-transform:rotateY(180deg);
+}
+div#action-stations-widget > a.action-stations-shrinkwrap {
+  padding-right:0.5em;
+  padding-left:0.2em;
+  padding-bottom:0px;
+  padding-top:0px;
+  margin:0px;
+  display:table-cell;
+  cursor:pointer;
+  font-size:x-large;
+  vertical-align:middle;
+}
+
+div#action-stations-widget a.action-stations-shrinkwrap.action-stations-dradis {
+  color:MediumSpringGreen;
+}
+div#action-stations-widget a.action-stations-shrinkwrap.action-stations-orange,
+div#action-stations-widget a.action-stations-shrinkwrap.action-stations-red {
+  color:yellow;
+}
+div#action-stations-widget a.action-stations-shrinkwrap.action-stations-pink {
+  color:red;
+}
+div#action-stations-widget a.action-stations-shrinkwrap.action-stations-snowflake {
+  color:blue;
+}
+div#action-stations-widget a.action-stations-shrinkwrap.action-stations-murica {
+  color:DarkBlue;
+}
+
+div#action-stations-widget a {
+  font-family:arial,helvetica,sans-serif;
+  font-weight:normal;
+  text-decoration:none;
+}
+div#action-stations-widget div.action-stations-expanded-head {
+  display:block;
+  width:100%;
+  max-height:2em;
+}
+div#action-stations-widget div.action-stations-expanded-head > h2 {
+  display:inline-block;
+  width:90%;
+  font-weight:normal;
+  font-size:large;
+  font-family:arial,helvetica,sans-serif;
+  padding-bottom:0.5em;
+  margin:0px;
+  height:100%;
+}
+div#action-stations-widget div.action-stations-expanded-head > a.action-stations-retract {
+  display:inline-block;
+  font-family:arial,helvetica,sans-serif;
+  text-align:left;
+  font-size:xx-large;
+  padding-bottom:0.5em;
+  height:2em;
+  cursor:pointer;
+  width:10%;
+  margin:0px;
+  height:100%;
+  vertical-align:top;
+  unicode-bidi:bidi-override;
+  -webkit-transform:rotateY(180deg);
+  -moz-transform:rotateY(180deg);
+  -o-transform:rotateY(180deg);
+  -ms-transform:rotateY(180deg);
+}
+
+div#action-stations-widget div.action-stations-expanded-head.action-stations-dradis {
+  color:white;
+  border-bottom:1px solid DodgerBlue;
+}
+div#action-stations-widget div.action-stations-expanded-head.action-stations-dradis a {
+  color:MediumSpringGreen;
+}
+div#action-stations-widget div.action-stations-expanded-head.action-stations-orange {
+  color:white;
+  border-bottom:1px solid yellow;
+}
+div#action-stations-widget div.action-stations-expanded-head.action-stations-orange a {
+	color:yellow;
+}
+div#action-stations-widget div.action-stations-expanded-head.action-stations-pink {
+  color:black;
+  border-bottom:1px solid red;
+}
+div#action-stations-widget div.action-stations-expanded-head.action-stations-pink a {
+  color:red;
+}
+div#action-stations-widget div.action-stations-expanded-head.action-stations-red {
+  color:LightGoldenRodYellow;
+  border-bottom:1px solid yellow;
+}
+div#action-stations-widget div.action-stations-expanded-head.action-stations-red a {
+  color:yellow;
+}
+div#action-stations-widget div.action-stations-expanded-head.action-stations-snowflake {
+  color:DarkBlue;
+  border-bottom:1px solid DarkBlue;
+}
+div#action-stations-widget div.action-stations-expanded-head.action-stations-snowflake a {
+  color:blue;
+}
+div#action-stations-widget div.action-stations-expanded-head.action-stations-murica {
+  color:DarkBlue;
+  border-bottom:1px solid blue;
+}
+
+div#action-stations-widget div.action-stations-row.action-stations-seen div.action-stations-widget-linkwrapper a,
+div#action-stations-widget div.action-stations-row.action-stations-seen div.action-stations-widget-linkwrapper div.action-stations-done div.locale-note {
+  opacity:0.5;
+  font-weight:lighter;
+}
+
+div#action-stations-widget div.action-stations-row.action-stations-donechecked div.action-stations-widget-linkwrapper a,
+div#action-stations-widget div.action-stations-row.action-stations-donechecked div.action-stations-widget-linkwrapper div.action-stations-done div.locale-note,
+div#action-stations-widget div.action-stations-row.action-stations-donechecked div.action-stations-timeleft {
+  text-decoration:line-through;
+  opacity:0.7;
+}
+div#action-stations-widget.action-stations-shrunk {
+  padding:2px;
+  border-radius:1em;
+  width:1em;
+  height:1em;
+  line-height:1em;
+}
+div#action-stations-widget.action-stations-shrunk > a.action-stations-shrinkwrap,
+div#action-stations-widget.action-stations-shrunk > a.action-stations-shrinkwrap > img {
+  padding:0px !important;
+  margin:0px !important;
+  vertical-align:middle !important;
+  text-align:center;
+  width:1em;
+  line-height:1em;
+  height:1em;
+}
+
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded {
+  padding-right:0.5em;
+  padding-left:0.2em;
+  padding-top:0px;
+  font-size:x-large;
+  vertical-align:top;
+  margin:0px;
+  display:inline;
+  cursor:pointer;
+}
+
+div#action-stations-widget > div.action-stations-expanded h2 > a.action-stations-settings-button {
+  font-size:xx-large;
+  font-weight:bold;
+  padding-top:0px;
+  padding-bottom:0px;
+  height:100%;
+  width:auto;
+  float:right;
+}
+div#action-stations-widget div.action-stations-row.action-stations-red div.action-stations-widget-linkwrapper div.action-stations-done label,
+div#action-stations-widget div.action-stations-row.action-stations-orange div.action-stations-widget-linkwrapper div.action-stations-done label,
+div#action-stations-widget div.action-stations-row.action-stations-dradis div.action-stations-widget-linkwrapper div.action-stations-done label {
+  color:white;
+}
+div#action-stations-widget div.action-stations-row.action-stations-snowflake div.action-stations-widget-linkwrapper div.action-stations-done label,
+div#action-stations-widget div.action-stations-row.action-stations-pink div.action-stations-widget-linkwrapper div.action-stations-done label,
+div#action-stations-widget div.action-stations-row.action-stations-murica div.action-stations-widget-linkwrapper div.action-stations-done label {
+  color:black;
+}
+
+div#action-stations-widget > a.action-stations-expand.action-stations-orange,
+div#action-stations-widget > a.action-stations-expand.action-stations-red,
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-orange,
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-red {
+  color:yellow;
+}
+div#action-stations-widget > a.action-stations-expand.action-stations-dradis,
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-dradis {
+  color:MediumSpringGreen;
+}
+div#action-stations-widget > a.action-stations-expand.action-stations-pink,
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-pink {
+  color:red;
+}
+div#action-stations-widget > a.action-stations-expand.action-stations-snowflake,
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-snowflake {
+  color:blue;
+}
+div#action-stations-widget > a.action-stations-expand.action-stations-murica,
+div#action-stations-widget a.action-stations-shrinkwrap-from-expanded.action-stations-murica {
+  color:DarkBlue;
+}
+div#action-stations-widget > div.action-stations-handle {
+  display:table-cell;
+  font-size:large;
+  font-weight:bold;
+  opacity:0.8;
+  height:100%;
+  vertical-align:middle;
+  padding-left:0.2em;
+  padding-right:0.2em;
+  cursor:move;
+}
+
+div#action-stations-widget div.action-stations-shrink-hint {
+  color:black;
+  background-color:LightGoldenRodYellow;
+  border:1px solid black;
+  position:absolute;
+  height:5em;
+  z-index:9999;
+  top:-5.5em;
+  left:-0.5em;
+  display:inline;
+  max-width:20em;
+  font-size:x-small;
+  text-align:center;
+  white-space:normal;
+}
+div#action-stations-widget div.action-stations-shrink-hint:after, div.action-stations-shrink-hint:before {
+  top: 100%;
+  left: 3em;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+}
+
+div#action-stations-widget div.action-stations-shrink-hint:after {
+  border-color: rgba(250, 250, 210, 0);
+  border-top-color: LightGoldenRodYellow;
+  border-width: 8px;
+  margin-left: -8px;
+}
+div#action-stations-widget div.action-stations-shrink-hint:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-top-color: #000000;
+  border-width: 9px;
+  margin-left: -9px;
+}
+div#action-stations-widget div.action-stations-shrink-hint button.action-stations-shrink-hint-close {
+  padding:0.2em;
+  margin-top:0.3em;
+  margin-bottom:0.2em;
+  color:LightGoldenRodYellow;
+  margin-left:auto;
+  margin-right:auto;
+  clear:both;
+  background-color:DarkBlue;
+  position:relative;
+  border:0px;
+  border-radius:0.2em;
+}
+
+div#action-stations-widget div.action-stations-row {
+  width:100%;
+  margin-left:0px;
+  margin-right:0px;
+  padding:0.4em;
+}
+
+div#action-stations-widget div.action-stations-row > div.action-stations-expanded div.action-stations-widget-linkwrapper,
+div#action-stations-widget div.action-stations-row > div.action-stations-expanded div.action-stations-widget-linkwrapper a {
+  font-size:large;
+}
+div#action-stations-widget div.action-stations-row div.action-stations-timeleft {
+  font-size:small;
+}
+div#action-stations-widget div.action-stations-row div.action-stations-done {
+  font-size:medium;
+}
+div#action-stations-widget div.action-stations-row div.action-stations-timeleft {
+  margin-bottom:0px;
+}
+
+div#action-stations-widget div.action-stations-row div.action-stations-widget-linkwrapper div.action-stations-done div.locale-note,
+div#action-stations-widget div.action-stations-row div.action-stations-widget-linkwrapper div.action-stations-done label {
+  display:inline-block;
+}
+div#action-stations-widget div.action-stations-row div.action-stations-widget-linkwrapper div.action-stations-done input {
+  display:none;
+}
+div#action-stations-widget div.action-stations-row div.action-stations-widget-linkwrapper > a {
+  width:75%;
+  margin:0px;
+  padding:0px;
+  white-space:normal;
+}
+div#action-stations-widget div.action-stations-row div.action-stations-widget-linkwrapper > div.action-stations-done {
+  width:24%;
+}
+div#action-stations-widget div.action-stations-row div.action-stations-done div.locale-note {
+  display:inline-block;
+  text-align:center;
+  font-size:x-small;
+  font-style:italic;
+  white-space:normal;
+  width:69%;
+}
+div#action-stations-widget div.action-stations-row div.action-stations-done label {
+  height:0;
+  padding-bottom:15%;
+  width:15%;
+  vertical-align:middle;
+  text-align:center;
+  opacity:0.5;
+}
+div#action-stations-widget div.action-stations-row div.action-stations-done label:hover {
+  opacity:1.0;
+}
+div#action-stations-widget span.action-stations-subtitle {
+  font-size:small;
+  font-style:italic;
+}
+
+div#action-stations-widget a.action-stations-mainsite {
+	font-size:x-large;
+	text-decoration:none;
+	font-family:Audiowide;
+}
+div#action-stations-widget div.action-stations-alert-count {
+  display:none;
+  color:white;
+  background-color:red;
+  font-size:x-small;
+  position:absolute;
+  bottom:-0.7em;
+  right:-0.7em;
+  z-index:1001;
+  padding-left:0.5em;
+  padding-right:0.5em;
+  padding-top:0.3em;
+  padding-bottom:0.3em;
+  border-radius:50%;
+}
+div#action-stations-widget.action-stations-shrunk div.action-stations-alert-count {
+  display:inline-block;
+}
+
+body#action-stations-fullscreen {
+  margin:0px;
+}
+body#action-stations-fullscreen div#action-stations-widget > div.action-stations-expanded {
+  overflow-y:hidden;
+}
+
+body#action-stations-fullscreen div#action-stations-widget a.action-stations-settings-button,
+body#action-stations-fullscreen div#action-stations-widget a.action-stations-retract {
+  display:none;
+}
+
+div#action-stations-widget div.action-stations-social-media {
+  display:inline-block;
+  margin-left:2em;
+  text-align:right;
+  width:8%;
+}
+div#action-stations-widget div.action-stations-social-media a {
+  display:inline-block;
+  width:50%;
+  opacity:0.7;
+}
+div#action-stations-widget div.action-stations-social-media a:hover {
+  opacity:1.0;
+}
+div#action-stations-widget div.action-stations-social-media img {
+  max-height:1em;
+  margin-left:0.3em;
+}
