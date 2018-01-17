@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 <%= content_script %>
 
-  if(skip_domains.indexOf(window.location.hostname) < 0){
+  if(window.location.hostname != "wtfisastevebannon.com" && !window.location.href.match(/twitter\.com\/SteveBannonFcts/i)){
     walk(document.body);
 
     new MutationObserver(function() {

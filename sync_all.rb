@@ -9,7 +9,8 @@ require 'pp'
 
 ENDPOINT = "https://pu2jh2b68k.execute-api.us-east-1.amazonaws.com/prod/somerichasshole"
 ROOTDIR = File.expand_path(File.dirname(__FILE__))
-ACTIONSTATIONS_FILES = %w(actionstations-browser.css actionstations-options.css actionstations.js actionstations-lib.js actionstations-popup-config.js actionstations-storage.js background.js jquery-3.1.1.min.js jquery.tcycle.js jquery-ui popup.html fb.png twitter.png fb-reverse.png twitter-reverse.png)
+ACTIONSTATIONS_FILES = %w(actionstations-browser.css actionstations-options.css actionstations.js actionstations-lib.js actionstations-popup-config.js actionstations-storage.js background.js jquery.tcycle.js popup.html fb.png twitter.png fb-reverse.png twitter-reverse.png)
+JQUERY_FILES = %w(jquery-3.1.1.min.js jquery-ui)
 
 phrases = (JSON.parse(URI.parse(ENDPOINT).read))["body"]
 
@@ -26,10 +27,15 @@ DIRS.each_pair { |subdir, template|
   File.open(ROOTDIR+"/"+subdir+"/phrases.js", "w+") { |fd|
     fd.puts "PHRASES = "+JSON.generate(phrases)+";\n"
   }
-  as_src = "#{Etc.getpwuid(Process.uid).dir}/actionstations/#{subdir}"
-  puts "Installing Action Stations components into #{ROOTDIR}/#{subdir}/"
-  ACTIONSTATIONS_FILES.each { |as|
-    `cp -va #{as_src}/#{as} #{ROOTDIR}/#{subdir}/`
+#  as_src = "#{Etc.getpwuid(Process.uid).dir}/actionstations/#{subdir}"
+#  puts "Installing Action Stations components into #{ROOTDIR}/#{subdir}/"
+#  ACTIONSTATIONS_FILES.each { |as|
+#    `cp -va #{as_src}/#{as} #{ROOTDIR}/#{subdir}/`
+#  }
+  puts "Installing JQuery components into #{ROOTDIR}/#{subdir}/"
+  jq_src = "#{Etc.getpwuid(Process.uid).dir}/actionstations/#{subdir}"
+  JQUERY_FILES.each { |jq|
+    `cp -va #{jq_src}/#{jq} #{ROOTDIR}/#{subdir}/`
   }
   if !template.nil?
     puts "Generating "+ROOTDIR+"/"+subdir+"/content_script.js"

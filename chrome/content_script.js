@@ -1,7 +1,14 @@
 $(document).ready(function() {
 
-  var createdPhrases = []
-  var skip_domains = ["wtfisastevebannon.com"];
+  var trumpedPhrases = []
+  var bannonedPhrases = []
+  var bannon_no_possessive = new RegExp("bannon(?!['’]s)", "i");
+  var fullname = "\\b((?:steve|steven|stephen)\\s*(?:k\\.?)?\\s*bannon)";
+  var bannon_full = new RegExp(fullname, "i");
+  var bannon_full_punct = new RegExp(fullname+"\\s?(?:[.,?\\-!\":(]|$)", "i");
+  var bannon_last_punct = new RegExp("(bannon)\\s?([.,?\\-!\":(]|$)", "i");
+  var bannon_full_space = new RegExp(fullname+"\\s", "i");
+  var bannon_last_space = new RegExp("(bannon)\\s", "i");
 
   function walk(node)
   {
@@ -30,6 +37,7 @@ $(document).ready(function() {
   }
 
   var foundtrumps = 0;
+  var foundbannons = 0;
   var phrase = "";
   var mode = "";
   var insertCalls = 0;
@@ -116,7 +124,7 @@ $(document).ready(function() {
 
 
     if(textNode.nodeValue != v){
-      createdPhrases.push(v);
+      trumpedPhrases.push(v);
       foundtrumps++;
       textNode.nodeValue = v;
     }
@@ -139,25 +147,25 @@ $(document).ready(function() {
 
       phrase = allphrases[Math.floor(Math.random()*allphrases.length)];
       // If it's his title and last name, sub name with something that makes
-      // grammatical sense alongside the 
-      if(textNode.nodeValue == v && createdPhrases.indexOf(v) < 0){
-        v = v.replace(/\b(mr\.|the|a|some|president|presidential candidate|candidate|president-elect)\s*(?:donald\s*)?(?:(?:john|j|j\.)\s*)?\btrump\b/gi, replacer);
+      // grammatical sense alongside "the"
+      if(textNode.nodeValue == v && trumpedPhrases.indexOf(v) < 0){
+        v = v.replace(/\b(the [a-z]+ |pro-|anti-|mr\.|the|a|some|president|presidential candidate|candidate|president-elect)\s*(?:donald\s*)?(?:(?:john|j|j\.)\s*)?\btrump\b/gi, replacer);
       }
 
       // Show some hate for Trump Tower
       mode = "theDevilHimselfPostfix";
-      if(textNode.nodeValue == v && createdPhrases.indexOf(v) < 0){
+      if(textNode.nodeValue == v && trumpedPhrases.indexOf(v) < 0){
         v = v.replace(/\btrump(\s*tower)\b/gi, replacer);
       }
 
       // if it's just his name, swap that
       mode = "theDevilHimself";
-      if(textNode.nodeValue == v && createdPhrases.indexOf(v) < 0){
+      if(textNode.nodeValue == v && trumpedPhrases.indexOf(v) < 0){
         v = v.replace(/\b(?:donald\s*)?(?:(?:john|j|j\.)\s*)?\btrump\b/gi, replacer);
       }
 
       if(textNode.nodeValue != v) {
-        createdPhrases.push(v);
+        trumpedPhrases.push(v);
       }
     }
 
@@ -171,24 +179,43 @@ $(document).ready(function() {
   {
     var v = textNode.nodeValue;
     mode = "svengali";
+    // try to skip things that look like code
+    if(v.match(/};/) && v.match(/\bvar /)){
+      return;
+    }
 
     if(PHRASES["bannonisms"].length > 0){
       var bannonphrase = PHRASES["bannonisms"][Math.floor(Math.random()*PHRASES["bannonisms"].length)];
+      if(bannonphrase.match(/^(was|has|does)/)){
+        bannonphrase = "who "+bannonphrase;
+      } else if(!bannonphrase.match(/^(who|the)/)){
+        bannonphrase = "who is "+bannonphrase;
+      }
       var prebannon = v;
-      if(createdPhrases.indexOf(prebannon) < 0){
-        v = v.replace(/\b(?:(steve|steven|stephen)\s*)\s*(bannon)\b/i, "$1 \""+bannonphrase+"\" $2");
-        if(v == prebannon){
-          // his surname is relatively common, don't bank on it being right without the Steve if a Trump hasn't been mentioned
-          if(foundtrumps > 0){
-            v = v.replace(/\b((?:(?:steve|steven|stephen)\s*)?(?:(?:k\.)\s*)?\bbannon)\b(?!\s\()/i, "$1 ("+bannonphrase+")");
+      if(bannonedPhrases.indexOf(prebannon) < 0){
+        if(v.match(bannon_no_possessive)){
+          if(v.match(bannon_full_punct)){
+            v = v.replace(bannon_full, "$1, "+bannonphrase);
+            foundbannons++;
+          } else if(v.match(bannon_full_space)){
+            v = v.replace(bannon_full, "$1- "+bannonphrase+"- ");
+            foundbannons++;
+          } else if(foundtrumps > 0 || foundbannons > 0) {
+            if(v.match(bannon_last_punct)){
+              v = v.replace(bannon_last_punct, "$1, "+bannonphrase+"$2");
+            } else if(v.match(bannon_last_space)){
+              v = v.replace(bannon_last_space, "$1- "+bannonphrase+"- ");
+            }
           } else {
-            v = v.replace(/\b((?:(?:steve|steven|stephen)\s*)(?:(?:k\.)\s*)?\bbannon)\b(?!\s\(')/i, "$1 ("+bannonphrase+")");
+            console.log("UNCAUGHT MATCH OF STEVE BANNON: "+v);
           }
+//      } else if(v.match(/bannon/i)) { // XXX eh, just skip it
+//        console.log("FOUND A BANNON WITH APOSTROPHE-S: "+v);
         }
         if(v != prebannon){
           PHRASES["bannonisms"].splice(PHRASES["bannonisms"].indexOf(bannonphrase), 1);
           textNode.nodeValue = v;
-          createdPhrases.push(v);
+          bannonedPhrases.push(v);
         }
       }
     }
@@ -202,7 +229,7 @@ $(document).ready(function() {
   }
 
 
-  if(skip_domains.indexOf(window.location.hostname) < 0){
+  if(window.location.hostname != "wtfisastevebannon.com" && !window.location.href.match(/twitter\.com\/SteveBannonFcts/i)){
     walk(document.body);
 
     new MutationObserver(function() {
