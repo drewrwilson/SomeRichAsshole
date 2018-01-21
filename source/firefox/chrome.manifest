@@ -1,3 +1,0 @@
-content	some-rich-asshole	chrome/content/	contentaccessible=yes
-
-overlay	chrome://browser/content/browser.xul	chrome://some-rich-asshole/content/main.xul
