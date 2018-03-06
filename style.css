@@ -87,6 +87,27 @@ a {
   }
 }
 
+.codelinks{
+  width: 100%;
+  position: fixed;
+  padding-top: 10px;
+  text-align: right;
+  z-index: 9999;
+}
+
+.codebutton{
+    background-color: black;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    padding: 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px 2px;
+}
+
 .titlebar {
   width: 100%;
   position: fixed;
